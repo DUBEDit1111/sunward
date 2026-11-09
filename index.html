@@ -1,0 +1,847 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Only good news. Each morning Sunward reads real newsrooms, keeps the stories where something got better, and says why in one line.">
+<link rel="canonical" href="https://dubedit1111.github.io/sunward/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%22-32%20-32%2064%2064%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23c8962e%22%20stroke-width%3D%223%22%3E%3Ccircle%20r%3D%2210%22%2F%3E%3Ccircle%20cx%3D%2210%22%20r%3D%2210%22%2F%3E%3Ccircle%20cx%3D%22-10%22%20r%3D%2210%22%2F%3E%3Ccircle%20cx%3D%225%22%20cy%3D%228.66%22%20r%3D%2210%22%2F%3E%3Ccircle%20cx%3D%22-5%22%20cy%3D%228.66%22%20r%3D%2210%22%2F%3E%3Ccircle%20cx%3D%225%22%20cy%3D%22-8.66%22%20r%3D%2210%22%2F%3E%3Ccircle%20cx%3D%22-5%22%20cy%3D%22-8.66%22%20r%3D%2210%22%2F%3E%3Ccircle%20r%3D%2220%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Sunward: only good news">
+<meta property="og:description" content="Only good news. Each morning Sunward reads real newsrooms, keeps the stories where something got better, and says why in one line.">
+<meta property="og:url" content="https://dubedit1111.github.io/sunward/">
+<meta name="twitter:card" content="summary">
+<title>Sunward · only good news</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Libre+Franklin:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: everything grows from one circle. The masthead draws Seed of Life to Metatron's Cube,
+   the topic filter is a Seed of Life with one petal per topic, and spacing steps by sqrt(3),
+   the ratio between neighbouring rings of a hexagonal circle lattice. */
+:root {
+  --bg: #f8f1df;
+  --surface: #fffaf0;
+  --ink: #1d1f3d;
+  --muted: #5b5a72;
+  --rule: #e4d3ad;
+  --gold: #9c6b10;
+  --line: #c39a45;
+  --sun-a: #f6c75a;
+  --sun-b: #e39b2b;
+  --planet: #3c7650;
+  --wildlife: #a1552a;
+  --health: #ad4159;
+  --discovery: #375c9c;
+  --people: #74499a;
+  --progress: #9c6b10;
+  --display: "Marcellus", "Palatino Linotype", Palatino, Georgia, serif;
+  --body: "Libre Franklin", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "DM Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  /* sqrt(3) spacing scale */
+  --s1: 8px; --s2: 14px; --s3: 24px; --s4: 42px; --s5: 72px; --s6: 125px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #10122a; --surface: #171a37; --ink: #f2e9d4; --muted: #a8a5c2; --rule: #2b2e55;
+    --gold: #e8bb5a; --line: #c9a04c; --sun-a: #f7cf6a; --sun-b: #e39b2b;
+    --planet: #86c79a; --wildlife: #eb9d6c; --health: #f08ea4; --discovery: #92b4f0; --people: #c7a2ea; --progress: #e8bb5a;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #10122a; --surface: #171a37; --ink: #f2e9d4; --muted: #a8a5c2; --rule: #2b2e55;
+  --gold: #e8bb5a; --line: #c9a04c; --sun-a: #f7cf6a; --sun-b: #e39b2b;
+  --planet: #86c79a; --wildlife: #eb9d6c; --health: #f08ea4; --discovery: #92b4f0; --people: #c7a2ea; --progress: #e8bb5a;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.6;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 var(--s5);
+  overflow-x: hidden;
+  position: relative;
+  isolation: isolate;
+}
+/* Flower of Life lattice behind the whole page; the tile is generated in script. */
+body::after {
+  content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background: var(--rule); opacity: .55;
+  -webkit-mask-image: var(--fol); mask-image: var(--fol);
+  -webkit-mask-size: 40px 69.282px; mask-size: 40px 69.282px;
+}
+a { color: inherit; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 4px; }
+.wrap { max-width: 1120px; margin: 0 auto; }
+
+/* Masthead */
+.mast { text-align: center; padding-block: var(--s4) var(--s3); display: flex; flex-direction: column; align-items: center; gap: var(--s1); }
+.figure { width: min(440px, 100%); aspect-ratio: 1; max-width: 100%; }
+.figure canvas { width: 100%; height: 100%; display: block; }
+.stage { font-family: var(--mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); margin: 0; min-height: 1.6em; }
+.dateline { font-family: var(--mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-top: var(--s3); }
+.name { font-family: var(--display); font-weight: 400; font-size: clamp(56px, 12vw, 120px); line-height: .9; margin: var(--s1) 0 var(--s2); letter-spacing: .04em; }
+.greet { font-size: clamp(17px, 2.4vw, 20px); color: var(--muted); margin: 0 auto; max-width: 34ch; text-wrap: balance; }
+.greet strong { color: var(--ink); font-weight: 600; }
+
+/* Vesica chain divider */
+.chain { display: block; width: 100%; height: 24px; color: var(--line); opacity: .7; margin-block: var(--s4); }
+
+/* Seed of Life topic filter */
+.choose { display: flex; flex-direction: column; align-items: center; gap: var(--s2); }
+.rosette { position: relative; width: min(380px, 100%); aspect-ratio: 1; max-width: 100%; }
+.rosette svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.rosette circle { fill: transparent; stroke: var(--line); stroke-width: 1; transition: fill .25s, stroke-width .25s; }
+.rosette circle.petal { stroke: var(--c); }
+.rosette circle.on { fill: color-mix(in srgb, var(--c) 16%, transparent); stroke-width: 2.2; }
+.rosette circle.hover { fill: color-mix(in srgb, var(--c) 8%, transparent); }
+.petal-btn {
+  position: absolute; transform: translate(-50%, -50%); width: 26%; padding: 4px 0;
+  background: none; border: 0; cursor: pointer; color: var(--ink);
+  font: 500 13.5px/1.2 var(--body); display: flex; flex-direction: column; align-items: center; gap: 2px;
+}
+.petal-btn .n { font: 400 11.5px/1 var(--mono); color: var(--c, var(--muted)); font-variant-numeric: tabular-nums; }
+.petal-btn[aria-pressed="true"] { font-weight: 600; }
+.petal-btn:disabled { opacity: .35; cursor: default; }
+.petal-btn.all { font-family: var(--display); font-size: 16px; }
+.choose-cap { margin: 0; font-size: 14px; color: var(--muted); text-align: center; }
+
+/* Glyphs */
+.glyph { width: 22px; height: 22px; flex: none; color: var(--c); }
+.glyph * { fill: none; stroke: currentColor; stroke-width: 1.3; vector-effect: non-scaling-stroke; }
+
+/* Lead */
+.lead { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1fr); gap: var(--s4); align-items: center; }
+.lead .art { aspect-ratio: 1; max-width: 100%; width: min(440px, 100%); justify-self: center; }
+.lead .art canvas { width: 100%; height: 100%; display: block; }
+.lead h2 { font-family: var(--display); font-weight: 400; font-size: clamp(30px, 3.8vw, 46px); line-height: 1.1; margin: var(--s2) 0 var(--s2); text-wrap: balance; }
+.lead p.sum { font-size: 17.5px; color: var(--muted); margin: 0 0 var(--s2); max-width: 52ch; }
+
+/* Grid */
+.grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s4) var(--s4); }
+.card { display: flex; flex-direction: column; gap: var(--s1); min-width: 0; }
+.card h3 { font-family: var(--display); font-weight: 400; font-size: 22px; line-height: 1.22; margin: 0; text-wrap: balance; }
+.card p.sum { margin: 0; color: var(--muted); font-size: 15px; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+.story a.t { text-decoration: none; background-image: linear-gradient(var(--line), var(--line)); background-size: 0 1.5px; background-repeat: no-repeat; background-position: 0 100%; transition: background-size .3s; }
+.story a.t:hover { background-size: 100% 1.5px; }
+.kicker { font-family: var(--mono); font-size: 11.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--c); display: flex; flex-wrap: wrap; align-items: center; gap: var(--s1); }
+/* How solid the good news is */
+.tag { padding: 3px 8px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); letter-spacing: .1em; cursor: help; }
+.tag.s-early { border-style: dashed; }
+.tag.s-proven, .tag.s-policy { color: var(--ink); border-color: var(--ink); }
+/* How you can help */
+.help { margin: 0; font-size: 14.5px; line-height: 1.45; color: var(--ink); padding: 8px 12px; border-left: 2px solid var(--c); background: color-mix(in srgb, var(--c) 9%, transparent); }
+.help .label { display: block; font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--c); margin-bottom: 2px; }
+.lead .help { font-size: 16px; max-width: 52ch; margin-bottom: var(--s2); }
+.calm .help { font-size: 17px; }
+/* Earlier days */
+.daynav { display: flex; align-items: center; justify-content: center; gap: var(--s2); margin-top: var(--s2); flex-wrap: wrap; }
+.daynav button { font: 500 13.5px/1 var(--body); color: var(--ink); background: transparent; border: 1px solid var(--line); border-radius: 999px; padding: 9px 14px; cursor: pointer; }
+.daynav button:disabled { opacity: .35; cursor: default; }
+.daynav button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.daynav .dayname { font-family: var(--mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); min-width: 15ch; text-align: center; }
+.pastnote { margin: var(--s1) 0 0; font-size: 14px; color: var(--muted); }
+/* Best of the week */
+.week h2 { font-family: var(--display); font-weight: 400; font-size: 30px; margin: 0 0 var(--s1); }
+.week .cap { margin: 0 0 var(--s3); color: var(--muted); max-width: 60ch; }
+.week ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr)); gap: var(--s3); counter-reset: wk; }
+.week li { counter-increment: wk; display: flex; flex-direction: column; gap: 6px; min-width: 0; padding-top: var(--s2); border-top: 1px solid var(--rule); }
+.week li .top { font-family: var(--mono); font-size: 11.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--c); display: flex; gap: var(--s1); align-items: baseline; flex-wrap: wrap; }
+.week li .top::before { content: counter(wk); font-family: var(--display); font-size: 26px; letter-spacing: 0; color: var(--gold); margin-right: 4px; }
+.week li .wday { background: none; border: 0; padding: 0; font: inherit; letter-spacing: inherit; text-transform: inherit; color: var(--muted); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+.week li .wday:disabled { cursor: default; text-decoration: none; }
+.week li a { font-family: var(--display); font-size: 20px; line-height: 1.25; color: var(--ink); text-decoration: none; text-wrap: balance; }
+.week li a:hover { text-decoration: underline; }
+.week li .why { font-size: 14.5px; }
+.meta { font-size: 13px; color: var(--muted); margin-top: auto; padding-top: 2px; }
+.meta b { font-weight: 600; color: var(--ink); }
+
+.c-all { --c: var(--gold); } .c-planet { --c: var(--planet); } .c-wildlife { --c: var(--wildlife); } .c-health { --c: var(--health); }
+.c-discovery { --c: var(--discovery); } .c-people { --c: var(--people); } .c-progress { --c: var(--progress); }
+
+.empty { text-align: center; color: var(--muted); padding: var(--s4) 0; grid-column: 1 / -1; }
+
+/* How it works */
+.sieve { display: grid; grid-template-columns: 1fr 1.3fr; gap: var(--s4); padding: var(--s4); background: var(--surface); border: 1px solid var(--rule); border-radius: 2px; }
+.sieve h2 { font-family: var(--display); font-weight: 400; font-size: 30px; margin: 0 0 var(--s2); }
+.sieve p { margin: 0 0 var(--s2); color: var(--muted); max-width: 46ch; }
+.tally { display: flex; gap: var(--s4); flex-wrap: wrap; margin-top: var(--s3); }
+.tally div { display: flex; flex-direction: column; }
+.tally .v { font-family: var(--display); font-size: 40px; line-height: 1; font-variant-numeric: tabular-nums; }
+.tally .k { font-family: var(--mono); font-size: 11.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-top: 6px; }
+.srcs { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+.srcs th { text-align: left; font-family: var(--mono); font-weight: 400; font-size: 11.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); padding: 0 0 var(--s1); }
+.srcs td { padding: 9px 0; border-top: 1px solid var(--rule); font-variant-numeric: tabular-nums; }
+.srcs td.num, .srcs th.num { text-align: right; width: 64px; }
+.srcs .bar-cell { width: 32%; padding-left: var(--s2); }
+.srcs .meter { height: 4px; background: var(--rule); overflow: hidden; }
+.srcs .meter i { display: block; height: 100%; background: var(--line); }
+footer { text-align: center; color: var(--muted); font-size: 13px; margin-top: var(--s4); display: flex; flex-direction: column; gap: 4px; }
+
+@media (max-width: 900px) {
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .lead, .sieve { grid-template-columns: minmax(0, 1fr); }
+  .lead .art { width: min(340px, 100%); }
+}
+@media (max-width: 560px) {
+  .grid { grid-template-columns: minmax(0, 1fr); gap: var(--s4); }
+  .sieve { padding: var(--s3); }
+  .srcs .bar-cell { display: none; }
+  .petal-btn { font-size: 12.5px; }
+  .stage { font-size: 11px; letter-spacing: .06em; }
+  .chain { margin-block: var(--s3); }
+}
+/* Why it's good */
+.why { margin: 0; font-size: 15px; line-height: 1.45; font-style: italic; color: var(--ink); }
+.why::before { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--c); margin-right: 8px; vertical-align: 2px; }
+.lead .why { font-size: 18.5px; margin-bottom: var(--s2); max-width: 46ch; }
+.card .why + .sum { -webkit-line-clamp: 3; }
+.feat { margin-left: var(--s1); padding: 3px 8px; border: 1px solid var(--line); border-radius: 999px; color: var(--gold); letter-spacing: .1em; }
+/* Daily brief */
+.brief { max-width: 60ch; margin: var(--s3) auto 0; text-align: left; font-size: 16.5px; line-height: 1.65; color: var(--ink); padding: var(--s3); background: var(--surface); border: 1px solid var(--rule); border-radius: 2px; }
+.brief .label { display: block; font-family: var(--mono); font-size: 11.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); margin-bottom: var(--s1); }
+
+/* Search + calm */
+.tools { display: flex; flex-wrap: wrap; gap: var(--s2); justify-content: center; align-items: center; width: min(560px, 100%); margin-top: var(--s1); }
+.search { flex: 1 1 260px; min-width: 0; }
+.search input {
+  width: 100%; font: 400 15px/1.2 var(--body); color: var(--ink); background: var(--surface);
+  border: 1px solid var(--rule); border-radius: 999px; padding: 11px 18px;
+}
+.search input::placeholder { color: var(--muted); }
+.search input:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.calm-btn { font: 500 14px/1 var(--body); color: var(--ink); background: transparent; border: 1px solid var(--line); border-radius: 999px; padding: 11px 16px; cursor: pointer; }
+.calm-btn[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.newnote { margin: 0; font-size: 14px; color: var(--gold); }
+.newchip { margin-left: var(--s1); padding: 3px 8px; border-radius: 999px; background: var(--c); color: var(--bg); letter-spacing: .1em; }
+
+/* Map */
+.mapwrap { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); gap: var(--s4); align-items: center; }
+.mapwrap h2 { font-family: var(--display); font-weight: 400; font-size: 30px; margin: 0 0 var(--s1); grid-column: 1 / -1; }
+#map svg { width: 100%; height: auto; display: block; overflow: visible; }
+.globe-edge { fill: color-mix(in srgb, var(--surface) 70%, transparent); stroke: var(--line); stroke-width: .6; opacity: .9; }
+.land { fill: none; stroke: var(--gold); stroke-width: 2.1; stroke-linecap: round; opacity: .42; }
+.pin { cursor: pointer; outline: none; }
+.pin .hit { fill: transparent; stroke: none; }
+.pin .halo { fill: color-mix(in srgb, var(--c) 22%, transparent); stroke: var(--c); stroke-width: .6; transition: r .2s; }
+.pin .dot { fill: var(--c); stroke: var(--surface); stroke-width: .8; }
+.pin.featured .halo { stroke: var(--gold); stroke-width: 1; }
+.pin.on .halo { fill: color-mix(in srgb, var(--c) 38%, transparent); stroke-width: 1.4; }
+.pin:focus-visible .halo { stroke: var(--gold); stroke-width: 2; }
+.pincard { display: flex; flex-direction: column; gap: var(--s1); min-width: 0; }
+.pincard .where { margin: 0; font-family: var(--mono); font-size: 11.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--c); }
+.pincard a.t { text-decoration: none; background-image: linear-gradient(var(--line), var(--line)); background-size: 0 1.5px; background-repeat: no-repeat; background-position: 0 100%; transition: background-size .3s; }
+.pincard a.t:hover { background-size: 100% 1.5px; }
+.pincard h3 { font-family: var(--display); font-weight: 400; font-size: 24px; line-height: 1.2; margin: 0; text-wrap: balance; }
+.beyond { grid-column: 1 / -1; margin: 0; font-size: 14px; color: var(--muted); }
+
+@media (max-width: 900px) { .mapwrap { grid-template-columns: minmax(0, 1fr); } }
+
+/* Calm reading: bigger type, one column, nothing moving */
+.calm body { font-size: 18px; }
+.calm body::after { display: none; }
+.calm .grid { grid-template-columns: minmax(0, 1fr); max-width: 680px; margin-inline: auto; gap: var(--s4); }
+.calm .card h3 { font-size: 26px; }
+.calm .card p.sum { -webkit-line-clamp: unset; display: block; font-size: 17px; }
+.calm .why { font-size: 17px; }
+.calm .lead { grid-template-columns: minmax(0, 1fr); max-width: 680px; margin-inline: auto; }
+.calm .lead .art { display: none; }
+.calm .chain { opacity: .35; }
+</style>
+
+<div class="wrap">
+  <header class="mast">
+    <div class="figure"><canvas id="seed" aria-label="Seed of Life unfolding into Metatron's Cube" role="img"></canvas></div>
+    <p class="stage" id="stage">Metatron's Cube · 13 circles · 78 lines</p>
+    <div class="dateline" id="dateline">Good news, gathered daily</div>
+    <h1 class="name">Sunward</h1>
+    <p class="greet" id="greet">Only stories that leave the world a little better.</p>
+    <nav class="daynav" id="daynav" aria-label="Choose a day" hidden>
+      <button type="button" id="prevday">‹ Earlier day</button>
+      <span class="dayname" id="dayname" aria-live="polite">Today</span>
+      <button type="button" id="nextday">Later day ›</button>
+    </nav>
+    <p class="pastnote" id="pastnote" hidden></p>
+    <p class="brief" id="brief" hidden><span class="label">Today in brief</span><span class="text"></span></p>
+  </header>
+
+  <svg class="chain" data-chain aria-hidden="true"></svg>
+
+  <nav class="choose" aria-label="Filter stories by topic">
+    <div class="rosette" id="rosette"></div>
+    <p class="choose-cap">Choose a petal to read one topic. The centre holds everything.</p>
+    <div class="tools">
+      <label class="search" for="q"><span class="sr">Search stories</span><input id="q" type="search" placeholder="Search today’s good news" autocomplete="off"></label>
+      <button id="calm" type="button" class="calm-btn" aria-pressed="false">Calm reading</button>
+    </div>
+    <p class="newnote" id="newnote" hidden></p>
+  </nav>
+
+  <svg class="chain" data-chain aria-hidden="true"></svg>
+
+  <section id="lead"></section>
+  <svg class="chain" data-chain aria-hidden="true"></svg>
+  <section class="mapwrap" aria-labelledby="map-h">
+    <h2 id="map-h">Where good things happened</h2>
+    <div id="map"></div>
+    <aside class="pincard" id="pincard"></aside>
+    <p class="beyond" id="beyond"></p>
+  </section>
+  <svg class="chain" data-chain aria-hidden="true"></svg>
+  <section class="grid" id="grid" aria-live="polite"></section>
+
+  <svg class="chain" data-chain aria-hidden="true" data-week hidden></svg>
+  <section class="week" id="week" aria-labelledby="week-h" hidden>
+    <h2 id="week-h">Best of the week</h2>
+    <p class="cap" id="week-cap"></p>
+    <ol id="weeklist"></ol>
+  </section>
+
+  <svg class="chain" data-chain aria-hidden="true"></svg>
+
+  <section class="sieve" aria-labelledby="sieve-h">
+    <div>
+      <h2 id="sieve-h">How the sieve works</h2>
+      <p id="sieve-p1">Every story comes from a real newsroom. We read their feeds, set aside stories about violence, disaster, politics or loss, and keep stories where something got better.</p>
+      <p id="sieve-p2">Good-news outlets pass with a light check. General science and environment desks need a clearly hopeful headline.</p>
+      <p id="sieve-p3">Many stories carry a tag for how solid the evidence is: <b>Early research</b> (lab or animal work, a first study), <b>Trial or pilot</b>, <b>Proven at scale</b>, or <b>Now policy</b>. Some include a line on how you can help, only when there is something real to do.</p>
+      <div class="tally" id="tally"></div>
+    </div>
+    <div style="min-width:0; overflow-x:auto">
+      <table class="srcs" id="srcs">
+        <thead><tr><th>Newsroom</th><th class="num">Read</th><th class="num">Kept</th><th class="bar-cell" aria-hidden="true"></th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer>
+    <span id="foot">Headlines link to the original publishers.</span>
+    <span>The masthead draws the Seed of Life, the Flower of Life, the Fruit of Life, then Metatron's Cube.</span>
+  </footer>
+</div>
+
+<script>
+const DATA = {"day":"2026-11-09","builtAt":"2026-11-09T15:09:07.246Z","read":205,"considered":101,"setAside":161,"judged":true,"digest":"Corvo in the Azores dimmed its lights again and 30,000 seabird chicks have reached the sea. Brazil enlarged a Pantanal national park, beavers are heading back to Loch Ness, and a volunteer has brought glowworms back to UK sites. A newly cleared PTSD therapy reached 68% remission, and all five building blocks of DNA and RNA turned up in asteroid samples.","sources":[{"name":"Positive News","read":10,"ok":true,"kept":4},{"name":"Good News Network","read":50,"ok":true,"kept":15},{"name":"Reasons to be Cheerful","read":10,"ok":true,"kept":3},{"name":"The Optimist Daily","read":10,"ok":true,"kept":3},{"name":"BBC Science & Environment","read":41,"ok":true,"kept":3},{"name":"The Guardian Environment","read":34,"ok":true,"kept":2},{"name":"ScienceDaily","read":60,"ok":true,"kept":14}],"stories":[{"id":"23333f5b88","title":"How yesterday's waste is becoming tomorrow's fashion","link":"https://www.bbc.co.uk/news/articles/cm5yd1q12g1no?at_medium=RSS&at_campaign=rss","date":"2026-11-09T13:18:38.000Z","summary":"","source":"BBC Science & Environment","category":"progress","why":"Big shoe and fashion brands are making more products from recycled materials.","place":null,"featured":false,"strength":"proven","help":"Repair or resell shoes and clothes before buying new ones."},{"id":"1f63567218","title":"Glowworms Shine Again in the UK from Larvae Reared Pro Bono in Garden Shed","link":"https://www.goodnewsnetwork.org/glowworms-shine-again-in-the-uk-from-larvae-reared-pro-bono-in-garden-shed/","date":"2026-11-09T12:30:57.000Z","summary":"","source":"Good News Network","category":"wildlife","why":"A volunteer breeding glowworms in his garden shed has brought their light back to UK sites.","place":{"name":"United Kingdom","lat":54,"lon":-2},"featured":false,"strength":"trial","help":"Leave a patch of garden unlit and unmown so glowworms and other insects can breed."},{"id":"e41da7202b","title":"A simple supplement may help clear brain fog after cancer","link":"https://www.sciencedaily.com/releases/2026/11/261104084013.htm","date":"2026-11-09T10:33:23.000Z","summary":"","source":"ScienceDaily","category":"health","why":"A natural molecule helped breast cancer survivors clear lingering brain fog and fatigue in a UCLA study.","place":{"name":"Los Angeles, California","lat":34.07,"lon":-118.44},"featured":false,"strength":"trial","help":null},{"id":"fe00b55b74","title":"NASA reveals bold new plan to return astronauts to the Moon in 2028","link":"https://www.sciencedaily.com/releases/2026/11/261108233054.htm","date":"2026-11-09T09:13:28.000Z","summary":"","source":"ScienceDaily","category":"discovery","why":"NASA has a faster plan to land astronauts on the Moon in 2028, with a test flight in 2027.","place":null,"featured":false,"strength":null,"help":null},{"id":"61164f23e3","title":"Hidden climate superpower: Why some ocean “snow” carries six times more carbon","link":"https://www.sciencedaily.com/releases/2026/11/261105224558.htm","date":"2026-11-09T01:14:33.000Z","summary":"","source":"ScienceDaily","category":"planet","why":"Stickier marine snow can carry six times more carbon to the deep ocean, refining climate models.","place":null,"featured":false,"strength":"early","help":null},{"id":"82c6d33a01","title":"An ancient ocean full of giant predators reveals a surprising twist in evolution","link":"https://www.sciencedaily.com/releases/2026/11/261106174535.htm","date":"2026-11-08T22:45:01.000Z","summary":"","source":"ScienceDaily","category":"discovery","why":"Fossils in Colombia reveal an ancient ocean far richer in giant predators than expected.","place":{"name":"Colombia","lat":5.6,"lon":-73.5},"featured":false,"strength":null,"help":null},{"id":"24d451d739","title":"Dogs Can Sniff-Out Invasive Plant Species With High Accuracy to Curb Their Destruction","link":"https://www.goodnewsnetwork.org/dogs-can-sniff-out-invasive-plant-species-with-75pt-accuracy/","date":"2026-11-08T18:36:02.000Z","summary":"","source":"Good News Network","category":"planet","why":"Trained sniffer dogs in Germany found invasive plants with high accuracy, helping catch them early.","place":{"name":"Leipzig, Germany","lat":51.34,"lon":12.37},"featured":false,"strength":"early","help":null},{"id":"f446d3e317","title":"Lucky Bird Found in Storm Drain a Mile From Home After Passing Driver Happens to Spot it Hopping in","link":"https://www.goodnewsnetwork.org/lucky-bird-found-in-storm-drain-a-mile-from-home/","date":"2026-11-08T14:08:15.000Z","summary":"","source":"Good News Network","category":"people","why":"A driver spotted a lost budgie in a storm drain a mile from home and got her back to her owner.","place":{"name":"Northampton, England","lat":52.24,"lon":-0.9},"featured":false,"strength":null,"help":null},{"id":"2648a8e408","title":"Baby Saved After Racing Heartbeat Detected by Family Doberman","link":"https://www.goodnewsnetwork.org/baby-saved-as-racing-heartbeat-detected-by-pet/","date":"2026-11-07T16:58:40.000Z","summary":"","source":"Good News Network","category":"health","why":"A family dog sensed a baby's racing heartbeat, and doctors caught the condition in time.","place":null,"featured":false,"strength":null,"help":null},{"id":"119fe72af4","title":"Adventurer Finally Hugs Mom After 28-Year Walk Around the World From Home in UK","link":"https://www.goodnewsnetwork.org/adventurer-finally-hugs-mom-after-28-year-walk-around-the-world-from-home-in-uk/","date":"2026-11-07T14:11:37.000Z","summary":"","source":"Good News Network","category":"people","why":"After a 28-year walk around the world, Karl Bushby is home in Hull and back with his mother.","place":{"name":"Hull, England","lat":53.74,"lon":-0.33},"featured":false,"strength":null,"help":null},{"id":"186947cb61","title":"Scientists discover Europe's ancient forests were nothing like we imagined","link":"https://www.sciencedaily.com/releases/2026/11/261104012333.htm","date":"2026-11-07T09:44:48.000Z","summary":"","source":"ScienceDaily","category":"planet","why":"Europe was long open woodland and meadow, a finding that can guide how land is restored.","place":null,"featured":false,"strength":null,"help":null},{"id":"10fb0c4d7d","title":"Rubin Observatory discovers two hidden companions of the Milky Way. Hundreds more may be waiting","link":"https://www.sciencedaily.com/releases/2026/11/261104012252.htm","date":"2026-11-07T09:12:43.000Z","summary":"","source":"ScienceDaily","category":"discovery","why":"The new Rubin Observatory found two unknown Milky Way companions after mapping just 7% of the sky.","place":null,"featured":false,"strength":null,"help":null},{"id":"62ef5ce13d","title":"People Around the World Help Buy Royal Estate for Wildlife Conservation","link":"https://www.goodnewsnetwork.org/people-around-the-world-help-buy-royal-estate-for-wildlife-conservation/","date":"2026-11-06T21:16:55.000Z","summary":"","source":"Good News Network","category":"wildlife","why":"Donors worldwide pooled millions to buy an estate where curlews, lapwings and rare bumblebees live.","place":null,"featured":false,"strength":"proven","help":"Join or volunteer with your local wildlife trust."},{"id":"275a5c706f","title":"Man Spends 12 Days Returning Lost Cash a Laborer Needed for His Daughter","link":"https://www.goodnewsnetwork.org/man-spends-12-days-returning-lost-cash-a-laborer-needed-for-his-daughter/","date":"2026-11-06T16:30:31.000Z","summary":"","source":"Good News Network","category":"people","why":"A man in Brazil spent 12 days tracing a labourer to return the cash he needed for his daughter.","place":{"name":"Southern Brazil","lat":-27,"lon":-51},"featured":false,"strength":null,"help":"If you find lost money or property, hand it in or try to trace the owner."},{"id":"e9f0a0ce24","title":"In Alaska’s capital, food comes by water, air or, most often, community sharing","link":"https://www.theguardian.com/environment/2026/nov/06/alaska-juneau-food-access","date":"2026-11-06T15:00:46.000Z","summary":"","source":"The Guardian Environment","category":"people","why":"In Juneau, residents feed one another through traditions of sharing fish, game and garden food.","place":{"name":"Juneau, Alaska","lat":58.3,"lon":-134.42},"featured":false,"strength":"proven","help":"Share surplus garden produce or food with neighbours rather than let it go to waste."},{"id":"189765247c","title":"Venomous Primate Believed Extinct for 100 Years Was Hiding in Plain Sight All Along","link":"https://www.goodnewsnetwork.org/venomous-primate-believed-extinct-for-100-years-was-hiding-in-plain-sight-all-along/","date":"2026-11-06T14:00:28.000Z","summary":"","source":"Good News Network","category":"wildlife","why":"The Bangka slow loris, feared extinct, is confirmed alive and living on its home island.","place":{"name":"Bangka Island, Indonesia","lat":-2.1,"lon":106.1},"featured":false,"strength":null,"help":null},{"id":"e0e026759a","title":"Geothermal Utilities Power Wave of US Affordable Housing with 40% Energy Savings","link":"https://www.goodnewsnetwork.org/geothermal-utilities-power-wave-of-us-affordable-housing-with-40-energy-savings/","date":"2026-11-06T12:30:16.000Z","summary":"","source":"Good News Network","category":"planet","why":"Vermont Gas launched a community geothermal network that cuts heating energy for affordable homes by 40%.","place":{"name":"Vermont, USA","lat":44,"lon":-72.7},"featured":false,"strength":"trial","help":"Ask your energy supplier whether heat pump or shared heating schemes are offered where you live."},{"id":"9c41a51388","title":"Scientists just found dinosaur blood that survived 115 million years","link":"https://www.sciencedaily.com/releases/2026/11/261105224542.htm","date":"2026-11-06T11:28:01.000Z","summary":"","source":"ScienceDaily","category":"discovery","why":"Chemically confirmed traces of blood survived 115 million years inside dinosaur bones.","place":null,"featured":false,"strength":null,"help":null},{"id":"835761b55c","title":"Don't miss: Meteor showers, fireballs, and a supermoon light up November's night sky","link":"https://www.sciencedaily.com/releases/2026/11/261105224547.htm","date":"2026-11-06T08:21:08.000Z","summary":"","source":"ScienceDaily","category":"discovery","why":"November brings fireballs, a Mars and Jupiter pairing and a supermoon to look up at.","place":null,"featured":false,"strength":null,"help":"Step outside on a clear night this month to look for the supermoon and meteors."},{"id":"794bc3250f","title":"An anti-aging drug may help protect the brain before Alzheimer's symptoms begin","link":"https://www.sciencedaily.com/releases/2026/11/261104084017.htm","date":"2026-11-06T01:11:19.000Z","summary":"","source":"ScienceDaily","category":"health","why":"Four weeks of low-dose rapamycin improved brain blood flow in people at genetic risk of Alzheimer's.","place":null,"featured":false,"strength":"trial","help":null},{"id":"2dccadf9e2","title":"The butterfly effect: a brighter way to make paint?","link":"https://www.positive.news/science/the-butterfly-effect-a-brighter-way-to-make-paint/","date":"2026-11-05T17:32:20.000Z","summary":"","source":"Positive News","category":"discovery","why":"Researchers are copying butterfly wing structures to make bright paint colours without chemical pigments.","place":null,"featured":false,"strength":"early","help":null},{"id":"8a4d57e5d5","title":"400-yo Shipwreck Puzzle Finally Cracked After More Than 20 Years of Mystery","link":"https://www.goodnewsnetwork.org/400-yo-padlock-code-finally-cracked-more-than-20-years-after-being-found-in-shipwreck-treasure/","date":"2026-11-05T16:30:16.000Z","summary":"","source":"Good News Network","category":"discovery","why":"A hospital CT scanner finally revealed the workings of a 400-year-old padlock from a Welsh shipwreck.","place":{"name":"Wales","lat":52.3,"lon":-3.8},"featured":false,"strength":null,"help":null},{"id":"4c3c67fa26","title":"The Montana Ranch Where Autistic People Are Wranglers and Guides","link":"https://reasonstobecheerful.world/montana-guest-ranch-employing-autistic-people/","date":"2026-11-05T15:35:06.000Z","summary":"","source":"Reasons to be Cheerful","category":"people","why":"At a Montana ranch, autistic adults work as guides, wranglers and cooks.","place":{"name":"Montana, USA","lat":46.9,"lon":-110.4},"featured":false,"strength":"proven","help":null},{"id":"fc60b1abe4","title":"Seabirds See Miracle Recovery After Avian Flu Wiped Them Out","link":"https://www.goodnewsnetwork.org/miracle-recovery-sees-seabirds-reclaim-former-colony-after-avian-flu-wiped-them-out/","date":"2026-11-05T12:00:52.000Z","summary":"","source":"Good News Network","category":"wildlife","why":"Sandwich terns have rebuilt a south coast colony three years after bird flu wiped it out.","place":{"name":"South coast, England","lat":50.8,"lon":-1.2},"featured":false,"strength":"proven","help":"Keep dogs on leads near beach nesting birds in spring and summer."},{"id":"4a9bb134f6","title":"Scientists solve 30-year-old mystery and discover a hidden defense against inflammation","link":"https://www.sciencedaily.com/releases/2026/11/261101010554.htm","date":"2026-11-05T11:05:46.000Z","summary":"","source":"ScienceDaily","category":"health","why":"Scientists found a defence that shields healthy cells from inflammation, a lead for new treatments.","place":null,"featured":false,"strength":"early","help":null},{"id":"543b7d9bb5","title":"Personalized brain therapy hits 68 percent remission for PTSD","link":"https://www.optimistdaily.com/2026/11/personalized-brain-therapy-hits-68-percent-remission-for-ptsd/","date":"2026-11-05T00:00:30.000Z","summary":"","source":"The Optimist Daily","category":"health","why":"A newly FDA-cleared personalised brain therapy put 68% of PTSD patients in trials into remission.","place":null,"featured":false,"strength":"proven","help":null},{"id":"cf85a14ec4","title":"Brazil Expands Protected Area for ‘One of the Richest and Most Sensitive Biomes on the Planet’","link":"https://www.goodnewsnetwork.org/brazil-expands-protected-area-for-one-of-the-richest-and-most-sensitive-biomes-on-the-planet/","date":"2026-11-04T19:30:10.000Z","summary":"","source":"Good News Network","category":"planet","why":"Brazil enlarged Pantanal Matogrossense National Park by more than a quarter, protecting rich wetland.","place":{"name":"Pantanal, Brazil","lat":-17.8,"lon":-57.5},"featured":false,"strength":"policy","help":null},{"id":"620500f96a","title":"Student-run Automotive Shop Opens to the Public in Houston Where Every Oil Change Helps the Next Generation","link":"https://www.goodnewsnetwork.org/student-run-automotive-shop-opens-to-the-public-in-houston-where-every-oil-change-helps-the-next-generation/","date":"2026-11-04T16:30:37.000Z","summary":"","source":"Good News Network","category":"people","why":"Houston high schoolers opened a public auto shop where every oil change funds their training.","place":{"name":"Houston, Texas","lat":29.76,"lon":-95.37},"featured":false,"strength":"trial","help":null},{"id":"6e4a5cbf54","title":"Woman Becomes First Person to Swim the Entire California Coastline","link":"https://www.goodnewsnetwork.org/woman-becomes-first-person-to-swim-the-entire-california-coastline/","date":"2026-11-04T12:30:19.000Z","summary":"","source":"Good News Network","category":"people","why":"Catherine Breed became the first person to swim the full 900-mile California coastline.","place":{"name":"California, USA","lat":36.8,"lon":-121.9},"featured":false,"strength":null,"help":null},{"id":"99f1d47061","title":"Who needs a golden ticket? The race to future-proof chocolate","link":"https://www.positive.news/society/who-needs-a-golden-ticket-the-race-to-future-proof-chocolate/","date":"2026-11-04T10:47:49.000Z","summary":"","source":"Positive News","category":"planet","why":"A student made chocolate from cocoa grown in England, testing hardier crops for a warming climate.","place":{"name":"England","lat":52.5,"lon":-1.5},"featured":false,"strength":"early","help":null},{"id":"6cdd1efd67","title":"Maya Higa built a wildlife sanctuary on Twitch, funded by the people who watch it","link":"https://www.optimistdaily.com/2026/11/maya-higa-built-a-wildlife-sanctuary-on-twitch-funded-by-the-people-who-watch-it/","date":"2026-11-04T00:00:49.000Z","summary":"","source":"The Optimist Daily","category":"wildlife","why":"Maya Higa built a wildlife sanctuary funded by the people who watch her streams.","place":null,"featured":false,"strength":"proven","help":null},{"id":"36f3ecbc3f","title":"Stanford scientists discovered bleached coral can heal through touch","link":"https://www.optimistdaily.com/2026/11/stanford-scientists-discovered-bleached-coral-can-heal-through-touch/","date":"2026-11-04T00:00:01.000Z","summary":"","source":"The Optimist Daily","category":"discovery","why":"In a Stanford lab, healthy coral helped a bleached fragment recover by touching it.","place":{"name":"Stanford, California","lat":37.43,"lon":-122.17},"featured":false,"strength":"early","help":null},{"id":"eb01a9df8d","title":"What if we stop treating social care like a service? This village shows the way","link":"https://www.positive.news/society/what-if-we-stopped-treating-social-care-like-a-service/","date":"2026-11-03T14:34:15.000Z","summary":"","source":"Positive News","category":"people","why":"An English village shares care through communal living, so older residents are supported by neighbours.","place":{"name":"England","lat":52.5,"lon":-1.5},"featured":false,"strength":"trial","help":"Check in on an older neighbour this week and ask what would help."},{"id":"03809a7f89","title":"Scientists identify two overlooked skills that predict reading success","link":"https://www.sciencedaily.com/releases/2026/11/261102202845.htm","date":"2026-11-03T12:15:18.000Z","summary":"","source":"ScienceDaily","category":"progress","why":"A large study shows early sound-awareness skills, not intelligence, best predict reading success.","place":null,"featured":false,"strength":null,"help":"Play rhyming and sound games with young children to build early reading skills."},{"id":"e66d3b28d0","title":"All 5 genetic “letters” of DNA and RNA discovered in a 4.5-billion-year-old asteroid","link":"https://www.sciencedaily.com/releases/2026/11/261102075903.htm","date":"2026-11-03T10:58:24.000Z","summary":"","source":"ScienceDaily","category":"discovery","why":"All five building blocks of DNA and RNA were found in samples from the asteroid Ryugu.","place":null,"featured":false,"strength":null,"help":null},{"id":"9099393b66","title":"Scientists reverse liver cell aging and cut Alzheimer’s-linked protein in half","link":"https://www.sciencedaily.com/releases/2026/10/261031221155.htm","date":"2026-11-03T00:34:59.000Z","summary":"","source":"ScienceDaily","category":"health","why":"An experimental drug rejuvenated liver cells in rats and halved an Alzheimer's-linked protein.","place":null,"featured":false,"strength":"early","help":null},{"id":"63f9b0151b","title":"NASA's Hubble and Webb discover ancient worlds that remember their past","link":"https://www.sciencedaily.com/releases/2026/10/261031221209.htm","date":"2026-11-02T03:07:01.000Z","summary":"","source":"ScienceDaily","category":"discovery","why":"Hubble and Webb found icy worlds beyond Neptune that still record how the solar system formed.","place":null,"featured":false,"strength":null,"help":null},{"id":"8b091bd7bb","title":"Islands Near Portugal Turn Off Lights to Protect Seabird Fledglings Every October – 30k Already Saved","link":"https://www.goodnewsnetwork.org/islands-near-portugal-turn-off-lights-to-protect-seabird-fledglings-every-oct/","date":"2026-11-02T03:04:49.000Z","summary":"","source":"Good News Network","category":"wildlife","why":"Corvo switches off its lights each October, and 30,000 seabird chicks have made it safely to sea.","place":{"name":"Corvo, Azores","lat":39.7,"lon":-31.1},"featured":true,"strength":"proven","help":"Switch off outdoor lights at night in autumn to help young seabirds and migrating birds."},{"id":"fe147c4007","title":"The Student Exchange Program That Never Leaves the U.S.","link":"https://reasonstobecheerful.world/america-student-exchange-program-empathy/","date":"2026-10-29T08:00:15.000Z","summary":"","source":"Reasons to be Cheerful","category":"people","why":"A US exchange programme sends students to live with families in other American communities.","place":{"name":"United States","lat":39.8,"lon":-98.6},"featured":false,"strength":"trial","help":null},{"id":"7e42a34870","title":"Smartphones, ancient tracking skills and a future for desert lions","link":"https://www.positive.news/society/smartphones-ancient-tracking-skills-and-a-future-for-desert-lions/","date":"2026-10-29T07:00:10.000Z","summary":"","source":"Positive News","category":"wildlife","why":"Namibian rangers pair phone alerts with tracking skills, helping farmers live alongside recovering desert lions.","place":{"name":"Kunene, Namibia","lat":-19.5,"lon":13.5},"featured":false,"strength":"trial","help":null},{"id":"0f9a2e476c","title":"Want the News to Unite People? Let Them Report It","link":"https://reasonstobecheerful.world/want-the-news-to-unite-people-let-them-report-it/","date":"2026-10-26T14:54:18.000Z","summary":"","source":"Reasons to be Cheerful","category":"people","why":"In Akron, trained residents report on public meetings, giving neighbours free, shared local news.","place":{"name":"Akron, Ohio","lat":41.08,"lon":-81.52},"featured":false,"strength":"trial","help":"Attend a local council or school board meeting and share what you learn with neighbours."},{"id":"34d57b777c","title":"‘It’s all God’s creation’: farmers continue a ‘Jewishly inspired’ agrarian tradition","link":"https://www.theguardian.com/world/ng-interactive/2026/oct/22/jewish-farmers-tradition-agriculture","date":"2026-10-22T19:18:11.000Z","summary":"","source":"The Guardian Environment","category":"people","why":"A growing number of Jewish Americans are finding community through small, Jewishly inspired farms.","place":{"name":"United States","lat":39.8,"lon":-98.6},"featured":false,"strength":null,"help":null},{"id":"e991620d3d","title":"How to move 1,300 plants for Kew's Palm House mega makeover","link":"https://www.bbc.co.uk/news/videos/c914d43gg2zdo?at_medium=RSS&at_campaign=rss","date":"2026-10-02T08:53:30.000Z","summary":"","source":"BBC Science & Environment","category":"planet","why":"Kew is moving 1,300 plants so its famous Palm House can be restored.","place":{"name":"Kew, London","lat":51.48,"lon":-0.29},"featured":false,"strength":null,"help":null},{"id":"7b91d8dd06","title":"First dinosaur bone from Antarctica found in a drawer","link":"https://www.bbc.co.uk/news/articles/cdep67jnn9zo?at_medium=RSS&at_campaign=rss","date":"2026-06-29T05:10:46.000Z","summary":"","source":"BBC Science & Environment","category":"discovery","why":"A tail bone found in a museum drawer is the first titanosaur ever identified from Antarctica.","place":null,"featured":false,"strength":null,"help":null}],"week":{"days":2,"stories":[{"id":"fc60b1abe4","day":"2026-11-08","title":"Seabirds See Miracle Recovery After Avian Flu Wiped Them Out","link":"https://www.goodnewsnetwork.org/miracle-recovery-sees-seabirds-reclaim-former-colony-after-avian-flu-wiped-them-out/","source":"Good News Network","category":"wildlife","why":"Sandwich terns have rebuilt a colony on England's south coast three years after avian flu wiped it out.","strength":"proven"},{"id":"8b091bd7bb","day":"2026-11-09","title":"Islands Near Portugal Turn Off Lights to Protect Seabird Fledglings Every October – 30k Already Saved","link":"https://www.goodnewsnetwork.org/islands-near-portugal-turn-off-lights-to-protect-seabird-fledglings-every-oct/","source":"Good News Network","category":"wildlife","why":"Corvo switches off its lights each October, and 30,000 seabird chicks have made it safely to sea.","strength":"proven"},{"id":"543b7d9bb5","day":"2026-11-09","title":"Personalized brain therapy hits 68 percent remission for PTSD","link":"https://www.optimistdaily.com/2026/11/personalized-brain-therapy-hits-68-percent-remission-for-ptsd/","source":"The Optimist Daily","category":"health","why":"A newly FDA-cleared personalised brain therapy put 68% of PTSD patients in trials into remission.","strength":"proven"},{"id":"cf85a14ec4","day":"2026-11-09","title":"Brazil Expands Protected Area for ‘One of the Richest and Most Sensitive Biomes on the Planet’","link":"https://www.goodnewsnetwork.org/brazil-expands-protected-area-for-one-of-the-richest-and-most-sensitive-biomes-on-the-planet/","source":"Good News Network","category":"planet","why":"Brazil enlarged Pantanal Matogrossense National Park by more than a quarter, protecting rich wetland.","strength":"policy"},{"id":"1f63567218","day":"2026-11-09","title":"Glowworms Shine Again in the UK from Larvae Reared Pro Bono in Garden Shed","link":"https://www.goodnewsnetwork.org/glowworms-shine-again-in-the-uk-from-larvae-reared-pro-bono-in-garden-shed/","source":"Good News Network","category":"wildlife","why":"A volunteer breeding glowworms in his garden shed has brought their light back to UK sites.","strength":"trial"},{"id":"62ef5ce13d","day":"2026-11-09","title":"People Around the World Help Buy Royal Estate for Wildlife Conservation","link":"https://www.goodnewsnetwork.org/people-around-the-world-help-buy-royal-estate-for-wildlife-conservation/","source":"Good News Network","category":"wildlife","why":"Donors worldwide pooled millions to buy an estate where curlews, lapwings and rare bumblebees live.","strength":"proven"},{"id":"e0e026759a","day":"2026-11-09","title":"Geothermal Utilities Power Wave of US Affordable Housing with 40% Energy Savings","link":"https://www.goodnewsnetwork.org/geothermal-utilities-power-wave-of-us-affordable-housing-with-40-energy-savings/","source":"Good News Network","category":"planet","why":"Vermont Gas launched a community geothermal network that cuts heating energy for affordable homes by 40%.","strength":"trial"}]}};
+const LAND = "82,-89;82,-87;82,-85;82,-83;82,-81;82,-79;82,-77;82,-75;82,-73;82,-71;82,-69;82,-67;82,-65;82,-59;82,-57;82,-55;82,-51;82,-49;82,-47;82,-45;82,-43;82,-41;82,-39;82,-37;82,-35;82,-33;82,-31;82,-29;82,-27;82,-23;80,-95;80,-93;80,-91;80,-89;80,-85;80,-83;80,-81;80,-79;80,-77;80,-75;80,-73;80,-71;80,-67;80,-65;80,-63;80,-61;80,-59;80,-57;80,-55;80,-53;80,-51;80,-49;80,-47;80,-45;80,-43;80,-41;80,-39;80,-37;80,-35;80,-33;80,-31;80,-29;80,-27;80,-25;80,-23;80,-21;80,-19;80,17;80,19;80,21;80,23;80,25;80,27;80,93;80,95;80,97;80,99;78,-111;78,-101;78,-97;78,-85;78,-83;78,-81;78,-79;78,-73;78,-71;78,-69;78,-67;78,-65;78,-63;78,-61;78,-59;78,-57;78,-55;78,-53;78,-51;78,-49;78,-47;78,-45;78,-43;78,-41;78,-39;78,-37;78,-35;78,-33;78,-31;78,-29;78,-27;78,-25;78,-23;78,-21;78,15;78,17;78,23;76,-121;76,-115;76,-113;76,-109;76,-107;76,-101;76,-99;76,-93;76,-91;76,-59;76,-57;76,-55;76,-53;76,-51;76,-49;76,-47;76,-45;76,-43;76,-41;76,-39;76,-37;76,-35;76,-33;76,-31;76,-29;76,-27;76,-25;76,-23;76,-21;76,61;76,63;76,65;76,95;76,99;76,101;76,103;76,105;76,107;76,109;76,111;76,113;76,139;76,141;74,-123;74,-121;74,-119;74,-117;74,-93;74,-55;74,-53;74,-51;74,-49;74,-47;74,-45;74,-43;74,-41;74,-39;74,-37;74,-35;74,-33;74,-31;74,-29;74,-27;74,-25;74,-23;74,-21;74,55;74,57;74,87;74,89;74,91;74,93;74,95;74,97;74,99;74,101;74,103;74,105;74,107;74,109;72,-125;72,-123;72,-121;72,-117;72,-115;72,-113;72,-111;72,-109;72,-107;72,-105;72,-99;72,-97;72,-89;72,-87;72,-85;72,-83;72,-81;72,-79;72,-77;72,-75;72,-55;72,-53;72,-51;72,-49;72,-47;72,-45;72,-43;72,-41;72,-39;72,-37;72,-35;72,-33;72,-31;72,-29;72,-27;72,-25;72,53;72,55;72,69;72,71;72,75;72,77;72,79;72,83;72,85;72,87;72,89;72,91;72,93;72,95;72,97;72,99;72,101;72,103;72,105;72,107;72,109;72,111;72,113;72,115;72,117;72,119;72,121;72,123;72,125;72,127;72,141;72,143;72,145;72,147;72,149;70,-161;70,-159;70,-157;70,-155;70,-153;70,-151;70,-149;70,-147;70,-145;70,-143;70,-131;70,-127;70,-117;70,-115;70,-113;70,-111;70,-109;70,-107;70,-105;70,-103;70,-101;70,-95;70,-93;70,-85;70,-83;70,-81;70,-77;70,-75;70,-73;70,-71;70,-69;70,-53;70,-51;70,-49;70,-47;70,-45;70,-43;70,-41;70,-39;70,-37;70,-35;70,-33;70,-31;70,-29;70,-27;70,-25;70,-23;70,21;70,23;70,25;70,27;70,29;70,69;70,71;70,75;70,77;70,79;70,81;70,83;70,85;70,87;70,89;70,91;70,93;70,95;70,97;70,99;70,101;70,103;70,105;70,107;70,109;70,111;70,113;70,115;70,117;70,119;70,121;70,123;70,125;70,127;70,129;70,131;70,133;70,135;70,137;70,139;70,141;70,143;70,145;70,147;70,149;70,151;70,153;70,155;70,157;70,159;70,171;68,-177;68,-175;68,-173;68,-171;68,-169;68,-167;68,-115;68,-113;68,-111;68,-109;68,-101;68,-99;68,-87;68,-81;68,-79;68,-77;68,-75;68,-65;68,-63;68,-61;68,-59;68,-57;68,-55;68,-31;68,-29;68,-27;68,-25;68,-23;68,-21;68,-19;68,-17;68,-15;68,-13;68,-11;68,-9;68,-7;68,-5;68,-3;68,-1;68,1;68,3;68,5;68,7;68,9;68,11;68,13;68,15;68,41;68,43;68,47;68,49;66,-179;66,-169;66,-85;66,-83;66,-81;66,-79;66,-77;66,-75;66,-67;66,-61;66,-59;66,-57;66,-55;66,-35;66,-33;66,-31;66,-29;66,-27;66,-25;66,-21;66,-13;66,-11;66,-9;66,-7;66,-5;66,-3;66,-1;66,1;66,3;66,5;66,7;66,9;66,11;66,35;66,37;66,39;64,-159;64,-157;64,-155;64,-153;64,-151;64,-149;64,-147;64,-145;64,-143;64,-141;64,-139;64,-137;64,-135;64,-133;64,-131;64,-129;64,-127;64,-125;64,-123;64,-121;64,-119;64,-117;64,-115;64,-113;64,-111;64,-109;64,-107;64,-105;64,-103;64,-101;64,-99;64,-97;64,-95;64,-93;64,-91;64,-85;64,-81;64,-71;64,-69;64,-67;64,-51;64,-49;64,-47;64,-45;64,-43;64,-41;64,-21;64,-19;64,-17;64,11;64,13;64,15;64,17;64,19;64,23;64,25;64,27;64,29;64,31;64,33;64,35;64,39;64,41;64,43;64,45;64,47;64,49;64,51;64,53;64,55;64,57;64,59;64,61;64,63;64,65;64,67;64,69;64,71;64,73;64,75;64,77;64,79;64,81;64,83;64,85;64,87;64,89;64,91;64,93;64,95;64,97;64,99;64,101;64,103;64,105;64,107;64,109;64,111;64,113;64,115;64,117;64,119;64,121;64,123;64,125;64,127;64,129;64,131;64,133;64,135;64,137;64,139;64,141;64,143;64,145;64,147;64,149;64,151;64,153;64,155;64,157;64,159;64,161;64,163;64,165;64,167;64,169;64,171;64,173;64,175;64,177;62,-165;62,-163;62,-161;62,-159;62,-157;62,-155;62,-153;62,-151;62,-149;62,-147;62,-145;62,-143;62,-141;62,-139;62,-137;62,-135;62,-133;62,-131;62,-129;62,-127;62,-125;62,-123;62,-121;62,-119;62,-117;62,-115;62,-113;62,-111;62,-109;62,-107;62,-105;62,-103;62,-101;62,-99;62,-97;62,-95;62,-77;62,-75;62,-73;62,-49;62,-47;62,-45;62,-43;62,7;62,9;62,11;62,13;62,15;62,17;62,23;62,25;62,27;62,29;62,31;62,33;62,35;62,37;62,39;62,41;62,43;62,45;62,47;62,49;62,51;62,53;62,55;62,57;62,59;62,61;62,63;62,65;62,67;62,69;62,71;62,73;62,75;62,77;62,79;62,81;62,83;62,85;62,87;62,89;62,91;62,93;62,95;62,97;62,99;62,101;62,103;62,105;62,107;62,109;62,111;62,113;62,115;62,117;62,119;62,121;62,123;62,125;62,127;62,129;62,131;62,133;62,135;62,137;62,139;62,141;62,143;62,145;62,147;62,149;62,151;62,153;62,155;62,157;62,159;62,161;62,165;62,167;62,169;62,171;62,173;62,175;60,-163;60,-161;60,-159;60,-157;60,-155;60,-153;60,-151;60,-149;60,-141;60,-139;60,-137;60,-135;60,-133;60,-131;60,-129;60,-127;60,-125;60,-123;60,-121;60,-119;60,-117;60,-115;60,-113;60,-111;60,-109;60,-107;60,-105;60,-103;60,-101;60,-99;60,-97;60,-95;60,-77;60,-75;60,-73;60,-71;60,-65;60,7;60,9;60,11;60,13;60,15;60,17;60,23;60,31;60,33;60,35;60,37;60,39;60,41;60,43;60,45;60,47;60,49;60,51;60,53;60,55;60,57;60,59;60,61;60,63;60,65;60,67;60,69;60,71;60,73;60,75;60,77;60,79;60,81;60,83;60,85;60,87;60,89;60,91;60,93;60,95;60,97;60,99;60,101;60,103;60,105;60,107;60,109;60,111;60,113;60,115;60,117;60,119;60,121;60,123;60,125;60,127;60,129;60,131;60,133;60,135;60,137;60,139;60,141;60,143;60,145;60,147;60,149;60,151;60,153;60,163;60,165;58,-157;58,-155;58,-133;58,-131;58,-129;58,-127;58,-125;58,-123;58,-121;58,-119;58,-117;58,-115;58,-113;58,-111;58,-109;58,-107;58,-105;58,-103;58,-101;58,-99;58,-97;58,-95;58,-93;58,-77;58,-75;58,-73;58,-71;58,-69;58,-67;58,-65;58,-63;58,-5;58,13;58,15;58,25;58,27;58,29;58,31;58,33;58,35;58,37;58,39;58,41;58,43;58,45;58,47;58,49;58,51;58,53;58,55;58,57;58,59;58,61;58,63;58,65;58,67;58,69;58,71;58,73;58,75;58,77;58,79;58,81;58,83;58,85;58,87;58,89;58,91;58,93;58,95;58,97;58,99;58,101;58,103;58,105;58,107;58,109;58,111;58,113;58,115;58,117;58,119;58,121;58,123;58,125;58,127;58,129;58,131;58,133;58,135;58,137;58,139;58,159;58,161;56,-159;56,-131;56,-129;56,-127;56,-125;56,-123;56,-121;56,-119;56,-117;56,-115;56,-113;56,-111;56,-109;56,-107;56,-105;56,-103;56,-101;56,-99;56,-97;56,-95;56,-93;56,-91;56,-89;56,-75;56,-73;56,-71;56,-69;56,-67;56,-65;56,-63;56,-61;56,-5;56,9;56,13;56,23;56,25;56,27;56,29;56,31;56,33;56,35;56,37;56,39;56,41;56,43;56,45;56,47;56,49;56,51;56,53;56,55;56,57;56,59;56,61;56,63;56,65;56,67;56,69;56,71;56,73;56,75;56,77;56,79;56,81;56,83;56,85;56,87;56,89;56,91;56,93;56,95;56,97;56,99;56,101;56,103;56,105;56,107;56,109;56,111;56,113;56,115;56,117;56,119;56,121;56,123;56,125;56,127;56,129;56,131;56,133;56,135;56,137;56,157;56,159;56,161;54,-133;54,-129;54,-127;54,-125;54,-123;54,-121;54,-119;54,-117;54,-115;54,-113;54,-111;54,-109;54,-107;54,-105;54,-103;54,-101;54,-99;54,-97;54,-95;54,-93;54,-91;54,-89;54,-87;54,-85;54,-83;54,-79;54,-77;54,-75;54,-73;54,-71;54,-69;54,-67;54,-65;54,-63;54,-61;54,-59;54,-9;54,-7;54,-1;54,9;54,11;54,13;54,15;54,17;54,19;54,21;54,23;54,25;54,27;54,29;54,31;54,33;54,35;54,37;54,39;54,41;54,43;54,45;54,47;54,49;54,51;54,53;54,55;54,57;54,59;54,61;54,63;54,65;54,67;54,69;54,71;54,73;54,75;54,77;54,79;54,81;54,83;54,85;54,87;54,89;54,91;54,93;54,95;54,97;54,99;54,101;54,103;54,105;54,107;54,109;54,111;54,113;54,115;54,117;54,119;54,121;54,123;54,125;54,127;54,129;54,131;54,133;54,135;54,137;54,139;54,157;54,159;52,-127;52,-125;52,-123;52,-121;52,-119;52,-117;52,-115;52,-113;52,-111;52,-109;52,-107;52,-105;52,-103;52,-101;52,-99;52,-97;52,-95;52,-93;52,-91;52,-89;52,-87;52,-85;52,-83;52,-77;52,-75;52,-73;52,-71;52,-69;52,-67;52,-65;52,-63;52,-61;52,-59;52,-57;52,-9;52,-5;52,-3;52,-1;52,1;52,5;52,7;52,9;52,11;52,13;52,15;52,17;52,19;52,21;52,23;52,25;52,27;52,29;52,31;52,33;52,35;52,37;52,39;52,41;52,43;52,45;52,47;52,49;52,51;52,53;52,55;52,57;52,59;52,61;52,63;52,65;52,67;52,69;52,71;52,73;52,75;52,77;52,79;52,81;52,83;52,85;52,87;52,89;52,91;52,93;52,95;52,97;52,99;52,101;52,103;52,105;52,107;52,109;52,111;52,113;52,115;52,117;52,119;52,121;52,123;52,125;52,127;52,129;52,131;52,133;52,135;52,137;52,139;52,141;52,143;52,157;50,-127;50,-123;50,-121;50,-119;50,-117;50,-115;50,-113;50,-111;50,-109;50,-107;50,-105;50,-103;50,-101;50,-99;50,-97;50,-95;50,-93;50,-91;50,-89;50,-87;50,-85;50,-83;50,-81;50,-79;50,-77;50,-75;50,-73;50,-71;50,-69;50,-67;50,-57;50,1;50,3;50,5;50,7;50,9;50,11;50,13;50,15;50,17;50,19;50,21;50,23;50,25;50,27;50,29;50,31;50,33;50,35;50,37;50,39;50,41;50,43;50,45;50,47;50,49;50,51;50,53;50,55;50,57;50,59;50,61;50,63;50,65;50,67;50,69;50,71;50,73;50,75;50,77;50,79;50,81;50,83;50,85;50,87;50,89;50,91;50,93;50,95;50,97;50,99;50,101;50,103;50,105;50,107;50,109;50,111;50,113;50,115;50,117;50,119;50,121;50,123;50,125;50,127;50,129;50,131;50,133;50,135;50,137;50,139;50,143;48,-121;48,-119;48,-117;48,-115;48,-113;48,-111;48,-109;48,-107;48,-105;48,-103;48,-101;48,-99;48,-97;48,-95;48,-93;48,-91;48,-89;48,-87;48,-85;48,-83;48,-81;48,-79;48,-77;48,-75;48,-73;48,-71;48,-69;48,-67;48,-59;48,-57;48,-55;48,-53;48,-3;48,-1;48,1;48,3;48,5;48,7;48,9;48,11;48,13;48,15;48,17;48,19;48,21;48,23;48,25;48,27;48,29;48,31;48,33;48,35;48,37;48,39;48,41;48,43;48,45;48,47;48,49;48,51;48,53;48,55;48,57;48,59;48,61;48,63;48,65;48,67;48,69;48,71;48,73;48,75;48,77;48,79;48,81;48,83;48,85;48,87;48,89;48,91;48,93;48,95;48,97;48,99;48,101;48,103;48,105;48,107;48,109;48,111;48,113;48,115;48,117;48,119;48,121;48,123;48,125;48,127;48,129;48,131;48,133;48,135;48,137;48,139;46,-123;46,-121;46,-119;46,-117;46,-115;46,-113;46,-111;46,-109;46,-107;46,-105;46,-103;46,-101;46,-99;46,-97;46,-95;46,-93;46,-91;46,-89;46,-87;46,-85;46,-83;46,-81;46,-79;46,-77;46,-75;46,-73;46,-71;46,-69;46,-67;46,-65;46,-61;46,-1;46,1;46,3;46,5;46,7;46,9;46,11;46,13;46,15;46,17;46,19;46,21;46,23;46,25;46,27;46,29;46,39;46,41;46,43;46,45;46,47;46,55;46,57;46,59;46,61;46,63;46,65;46,67;46,69;46,71;46,73;46,75;46,77;46,79;46,81;46,83;46,85;46,87;46,89;46,91;46,93;46,95;46,97;46,99;46,101;46,103;46,105;46,107;46,109;46,111;46,113;46,115;46,117;46,119;46,121;46,123;46,125;46,127;46,129;46,131;46,133;46,135;46,137;44,-123;44,-121;44,-119;44,-117;44,-115;44,-113;44,-111;44,-109;44,-107;44,-105;44,-103;44,-101;44,-99;44,-97;44,-95;44,-93;44,-91;44,-89;44,-87;44,-85;44,-83;44,-81;44,-79;44,-77;44,-75;44,-73;44,-71;44,-65;44,-1;44,1;44,3;44,5;44,7;44,11;44,17;44,19;44,21;44,23;44,25;44,27;44,41;44,43;44,45;44,47;44,51;44,53;44,55;44,57;44,59;44,61;44,63;44,65;44,67;44,69;44,71;44,73;44,75;44,77;44,79;44,81;44,83;44,85;44,87;44,89;44,91;44,93;44,95;44,97;44,99;44,101;44,103;44,105;44,107;44,109;44,111;44,113;44,115;44,117;44,119;44,121;44,123;44,125;44,127;44,129;44,131;44,133;44,135;44,143;44,145;42,-123;42,-121;42,-119;42,-117;42,-115;42,-113;42,-111;42,-109;42,-107;42,-105;42,-103;42,-101;42,-99;42,-97;42,-95;42,-93;42,-91;42,-89;42,-87;42,-85;42,-83;42,-81;42,-79;42,-77;42,-75;42,-73;42,-71;42,-9;42,-7;42,-5;42,-3;42,-1;42,1;42,3;42,9;42,13;42,15;42,21;42,23;42,25;42,27;42,35;42,43;42,45;42,47;42,53;42,55;42,57;42,59;42,61;42,63;42,65;42,67;42,69;42,71;42,73;42,75;42,77;42,79;42,81;42,83;42,85;42,87;42,89;42,91;42,93;42,95;42,97;42,99;42,101;42,103;42,105;42,107;42,109;42,111;42,113;42,115;42,117;42,119;42,121;42,123;42,125;42,127;42,129;42,141;40,-123;40,-121;40,-119;40,-117;40,-115;40,-113;40,-111;40,-109;40,-107;40,-105;40,-103;40,-101;40,-99;40,-97;40,-95;40,-93;40,-91;40,-89;40,-87;40,-85;40,-83;40,-81;40,-79;40,-77;40,-75;40,-9;40,-7;40,-5;40,-3;40,-1;40,9;40,21;40,27;40,29;40,31;40,33;40,35;40,37;40,39;40,41;40,43;40,45;40,47;40,49;40,55;40,57;40,59;40,61;40,63;40,65;40,67;40,69;40,71;40,73;40,75;40,77;40,79;40,81;40,83;40,85;40,87;40,89;40,91;40,93;40,95;40,97;40,99;40,101;40,103;40,105;40,107;40,109;40,111;40,113;40,115;40,117;40,119;40,123;40,125;40,127;40,141;38,-121;38,-119;38,-117;38,-115;38,-113;38,-111;38,-109;38,-107;38,-105;38,-103;38,-101;38,-99;38,-97;38,-95;38,-93;38,-91;38,-89;38,-87;38,-85;38,-83;38,-81;38,-79;38,-77;38,-7;38,-5;38,-3;38,-1;38,13;38,15;38,23;38,27;38,29;38,31;38,33;38,35;38,37;38,39;38,41;38,43;38,45;38,47;38,49;38,55;38,57;38,59;38,61;38,63;38,65;38,67;38,69;38,71;38,73;38,75;38,77;38,79;38,81;38,83;38,85;38,87;38,89;38,91;38,93;38,95;38,97;38,99;38,101;38,103;38,105;38,107;38,109;38,111;38,113;38,115;38,117;38,125;38,127;36,-121;36,-119;36,-117;36,-115;36,-113;36,-111;36,-109;36,-107;36,-105;36,-103;36,-101;36,-99;36,-97;36,-95;36,-93;36,-91;36,-89;36,-87;36,-85;36,-83;36,-81;36,-79;36,-77;36,1;36,3;36,5;36,7;36,9;36,37;36,39;36,41;36,43;36,45;36,47;36,49;36,51;36,53;36,55;36,57;36,59;36,61;36,63;36,65;36,67;36,69;36,71;36,73;36,75;36,77;36,79;36,81;36,83;36,85;36,87;36,89;36,91;36,93;36,95;36,97;36,99;36,101;36,103;36,105;36,107;36,109;36,111;36,113;36,115;36,117;36,119;36,127;36,129;36,137;36,139;34,-117;34,-115;34,-113;34,-111;34,-109;34,-107;34,-105;34,-103;34,-101;34,-99;34,-97;34,-95;34,-93;34,-91;34,-89;34,-87;34,-85;34,-83;34,-81;34,-79;34,-7;34,-5;34,-3;34,-1;34,1;34,3;34,5;34,7;34,9;34,37;34,39;34,41;34,43;34,45;34,47;34,49;34,51;34,53;34,55;34,57;34,59;34,61;34,63;34,65;34,67;34,69;34,71;34,73;34,75;34,77;34,79;34,81;34,83;34,85;34,87;34,89;34,91;34,93;34,95;34,97;34,99;34,101;34,103;34,105;34,107;34,109;34,111;34,113;34,115;34,117;34,119;34,131;34,133;32,-115;32,-113;32,-111;32,-109;32,-107;32,-105;32,-103;32,-101;32,-99;32,-97;32,-95;32,-93;32,-91;32,-89;32,-87;32,-85;32,-83;32,-81;32,-9;32,-7;32,-5;32,-3;32,-1;32,1;32,3;32,5;32,7;32,9;32,11;32,13;32,15;32,21;32,23;32,35;32,37;32,39;32,41;32,43;32,45;32,47;32,49;32,51;32,53;32,55;32,57;32,59;32,61;32,63;32,65;32,67;32,69;32,71;32,73;32,75;32,77;32,79;32,81;32,83;32,85;32,87;32,89;32,91;32,93;32,95;32,97;32,99;32,101;32,103;32,105;32,107;32,109;32,111;32,113;32,115;32,117;32,119;32,121;32,131;30,-115;30,-111;30,-109;30,-107;30,-105;30,-103;30,-101;30,-99;30,-97;30,-95;30,-93;30,-91;30,-85;30,-83;30,-9;30,-7;30,-5;30,-3;30,-1;30,1;30,3;30,5;30,7;30,9;30,11;30,13;30,15;30,17;30,19;30,21;30,23;30,25;30,27;30,29;30,31;30,33;30,35;30,37;30,39;30,41;30,43;30,45;30,47;30,51;30,53;30,55;30,57;30,59;30,61;30,63;30,65;30,67;30,69;30,71;30,73;30,75;30,77;30,79;30,81;30,83;30,85;30,87;30,89;30,91;30,93;30,95;30,97;30,99;30,101;30,103;30,105;30,107;30,109;30,111;30,113;30,115;30,117;30,119;30,121;28,-113;28,-111;28,-109;28,-107;28,-105;28,-103;28,-101;28,-99;28,-97;28,-81;28,-11;28,-9;28,-7;28,-5;28,-3;28,-1;28,1;28,3;28,5;28,7;28,9;28,11;28,13;28,15;28,17;28,19;28,21;28,23;28,25;28,27;28,29;28,31;28,33;28,37;28,39;28,41;28,43;28,45;28,47;28,53;28,55;28,57;28,59;28,61;28,63;28,65;28,67;28,69;28,71;28,73;28,75;28,77;28,79;28,81;28,83;28,85;28,87;28,89;28,91;28,93;28,95;28,97;28,99;28,101;28,103;28,105;28,107;28,109;28,111;28,113;28,115;28,117;28,119;28,121;26,-109;26,-107;26,-105;26,-103;26,-101;26,-99;26,-81;26,-13;26,-11;26,-9;26,-7;26,-5;26,-3;26,-1;26,1;26,3;26,5;26,7;26,9;26,11;26,13;26,15;26,17;26,19;26,21;26,23;26,25;26,27;26,29;26,31;26,33;26,37;26,39;26,41;26,43;26,45;26,47;26,49;26,59;26,61;26,63;26,65;26,67;26,69;26,71;26,73;26,75;26,77;26,79;26,81;26,83;26,85;26,87;26,89;26,91;26,93;26,95;26,97;26,99;26,101;26,103;26,105;26,107;26,109;26,111;26,113;26,115;26,117;26,119;24,-107;24,-105;24,-103;24,-101;24,-99;24,-15;24,-13;24,-11;24,-9;24,-7;24,-5;24,-3;24,-1;24,1;24,3;24,5;24,7;24,9;24,11;24,13;24,15;24,17;24,19;24,21;24,23;24,25;24,27;24,29;24,31;24,33;24,35;24,39;24,41;24,43;24,45;24,47;24,49;24,51;24,53;24,55;24,57;24,69;24,71;24,73;24,75;24,77;24,79;24,81;24,83;24,85;24,87;24,89;24,91;24,93;24,95;24,97;24,99;24,101;24,103;24,105;24,107;24,109;24,111;24,113;24,115;24,117;24,121;22,-105;22,-103;22,-101;22,-99;22,-79;22,-15;22,-13;22,-11;22,-9;22,-7;22,-5;22,-3;22,-1;22,1;22,3;22,5;22,7;22,9;22,11;22,13;22,15;22,17;22,19;22,21;22,23;22,25;22,27;22,29;22,31;22,33;22,35;22,41;22,43;22,45;22,47;22,49;22,51;22,53;22,55;22,57;22,59;22,71;22,73;22,75;22,77;22,79;22,81;22,83;22,85;22,87;22,89;22,93;22,95;22,97;22,99;22,101;22,103;22,105;22,107;22,109;22,111;22,113;20,-105;20,-103;20,-101;20,-99;20,-97;20,-89;20,-77;20,-75;20,-15;20,-13;20,-11;20,-9;20,-7;20,-5;20,-3;20,-1;20,1;20,3;20,5;20,7;20,9;20,11;20,13;20,15;20,17;20,19;20,21;20,23;20,25;20,27;20,29;20,31;20,33;20,35;20,37;20,41;20,43;20,45;20,47;20,49;20,51;20,53;20,55;20,57;20,73;20,75;20,77;20,79;20,81;20,83;20,85;20,93;20,95;20,97;20,99;20,101;20,103;20,105;18,-101;18,-99;18,-97;18,-95;18,-93;18,-91;18,-89;18,-77;18,-67;18,-15;18,-13;18,-11;18,-9;18,-7;18,-5;18,-3;18,-1;18,1;18,3;18,5;18,7;18,9;18,11;18,13;18,15;18,17;18,19;18,21;18,23;18,25;18,27;18,29;18,31;18,33;18,35;18,37;18,43;18,45;18,47;18,49;18,51;18,53;18,55;18,75;18,77;18,79;18,81;18,83;18,95;18,97;18,99;18,101;18,103;18,105;18,121;16,-97;16,-93;16,-91;16,-89;16,-15;16,-13;16,-11;16,-9;16,-7;16,-5;16,-3;16,-1;16,1;16,3;16,5;16,7;16,9;16,11;16,13;16,15;16,17;16,19;16,21;16,23;16,25;16,27;16,29;16,31;16,33;16,35;16,37;16,39;16,43;16,45;16,47;16,49;16,51;16,75;16,77;16,79;16,95;16,99;16,101;16,103;16,105;16,107;16,121;14,-91;14,-89;14,-87;14,-85;14,-15;14,-13;14,-11;14,-9;14,-7;14,-5;14,-3;14,-1;14,1;14,3;14,5;14,7;14,9;14,11;14,13;14,15;14,17;14,19;14,21;14,23;14,25;14,27;14,29;14,31;14,33;14,35;14,37;14,39;14,41;14,45;14,47;14,75;14,77;14,79;14,99;14,101;14,103;14,105;14,107;14,109;14,121;14,123;12,-85;12,-15;12,-13;12,-11;12,-9;12,-7;12,-5;12,-3;12,-1;12,1;12,3;12,5;12,7;12,9;12,11;12,13;12,15;12,17;12,19;12,21;12,23;12,25;12,27;12,29;12,31;12,33;12,35;12,37;12,39;12,41;12,43;12,51;12,77;12,79;12,99;12,103;12,105;12,107;12,109;12,125;10,-85;10,-75;10,-73;10,-71;10,-69;10,-67;10,-65;10,-63;10,-13;10,-11;10,-9;10,-7;10,-5;10,-3;10,-1;10,1;10,3;10,5;10,7;10,9;10,11;10,13;10,15;10,17;10,19;10,21;10,23;10,25;10,27;10,29;10,31;10,33;10,35;10,37;10,39;10,41;10,43;10,45;10,47;10,49;10,77;10,79;10,99;10,105;10,119;10,123;8,-81;8,-77;8,-75;8,-73;8,-71;8,-69;8,-67;8,-65;8,-63;8,-61;8,-13;8,-11;8,-9;8,-7;8,-5;8,-3;8,-1;8,1;8,3;8,5;8,7;8,9;8,11;8,13;8,15;8,17;8,19;8,21;8,23;8,25;8,27;8,29;8,31;8,33;8,35;8,37;8,39;8,41;8,43;8,45;8,47;8,49;8,81;8,99;8,123;8,125;6,-77;6,-75;6,-73;6,-71;6,-69;6,-67;6,-65;6,-63;6,-61;6,-59;6,-55;6,-9;6,-7;6,-5;6,-3;6,-1;6,1;6,5;6,7;6,9;6,11;6,13;6,15;6,17;6,19;6,21;6,23;6,25;6,27;6,29;6,31;6,33;6,35;6,37;6,39;6,41;6,43;6,45;6,47;6,101;6,117;6,125;4,-77;4,-75;4,-73;4,-71;4,-69;4,-67;4,-65;4,-63;4,-61;4,-59;4,-57;4,-55;4,-53;4,9;4,11;4,13;4,15;4,17;4,19;4,21;4,23;4,25;4,27;4,29;4,31;4,33;4,35;4,37;4,39;4,41;4,43;4,45;4,47;4,97;4,101;4,103;4,115;4,117;2,-77;2,-75;2,-73;2,-71;2,-69;2,-67;2,-65;2,-63;2,-61;2,-59;2,-57;2,-55;2,-53;2,-51;2,11;2,13;2,15;2,17;2,19;2,21;2,23;2,25;2,27;2,29;2,31;2,33;2,35;2,37;2,39;2,41;2,43;2,45;2,99;2,101;2,103;2,113;2,115;2,117;0,-79;0,-77;0,-75;0,-73;0,-71;0,-69;0,-67;0,-65;0,-63;0,-61;0,-59;0,-57;0,-55;0,-53;0,-51;0,11;0,13;0,15;0,17;0,19;0,21;0,23;0,25;0,27;0,29;0,31;0,33;0,35;0,37;0,39;0,41;0,101;0,103;0,111;0,113;0,115;0,117;-2,-79;-2,-77;-2,-75;-2,-73;-2,-71;-2,-69;-2,-67;-2,-65;-2,-63;-2,-61;-2,-59;-2,-57;-2,-55;-2,-53;-2,-51;-2,-49;-2,-47;-2,-45;-2,11;-2,13;-2,15;-2,17;-2,19;-2,21;-2,23;-2,25;-2,27;-2,29;-2,31;-2,33;-2,35;-2,37;-2,39;-2,41;-2,101;-2,103;-2,111;-2,113;-2,115;-2,121;-2,133;-2,137;-2,139;-4,-81;-4,-79;-4,-77;-4,-75;-4,-73;-4,-71;-4,-69;-4,-67;-4,-65;-4,-63;-4,-61;-4,-59;-4,-57;-4,-55;-4,-53;-4,-51;-4,-49;-4,-47;-4,-45;-4,-43;-4,-41;-4,-39;-4,13;-4,15;-4,17;-4,19;-4,21;-4,23;-4,25;-4,27;-4,29;-4,31;-4,33;-4,35;-4,37;-4,39;-4,103;-4,105;-4,115;-4,133;-4,135;-4,137;-4,139;-4,141;-4,143;-4,153;-6,-81;-6,-79;-6,-77;-6,-75;-6,-73;-6,-71;-6,-69;-6,-67;-6,-65;-6,-63;-6,-61;-6,-59;-6,-57;-6,-55;-6,-53;-6,-51;-6,-49;-6,-47;-6,-45;-6,-43;-6,-41;-6,-39;-6,-37;-6,13;-6,15;-6,17;-6,19;-6,21;-6,23;-6,25;-6,27;-6,29;-6,31;-6,33;-6,35;-6,37;-6,107;-6,139;-6,141;-6,143;-6,145;-6,147;-6,149;-6,155;-8,-79;-8,-77;-8,-75;-8,-73;-8,-71;-8,-69;-8,-67;-8,-65;-8,-63;-8,-61;-8,-59;-8,-57;-8,-55;-8,-53;-8,-51;-8,-49;-8,-47;-8,-45;-8,-43;-8,-41;-8,-39;-8,-37;-8,-35;-8,15;-8,17;-8,19;-8,21;-8,23;-8,25;-8,27;-8,29;-8,31;-8,33;-8,35;-8,37;-8,39;-8,111;-8,113;-8,139;-8,141;-8,143;-8,147;-8,159;-10,-77;-10,-75;-10,-73;-10,-71;-10,-69;-10,-67;-10,-65;-10,-63;-10,-61;-10,-59;-10,-57;-10,-55;-10,-53;-10,-51;-10,-49;-10,-47;-10,-45;-10,-43;-10,-41;-10,-39;-10,-37;-10,15;-10,17;-10,19;-10,21;-10,23;-10,25;-10,27;-10,29;-10,31;-10,33;-10,35;-10,37;-10,39;-10,149;-12,-77;-12,-75;-12,-73;-12,-71;-12,-69;-12,-67;-12,-65;-12,-63;-12,-61;-12,-59;-12,-57;-12,-55;-12,-53;-12,-51;-12,-49;-12,-47;-12,-45;-12,-43;-12,-41;-12,-39;-12,15;-12,17;-12,19;-12,21;-12,23;-12,25;-12,27;-12,29;-12,31;-12,33;-12,35;-12,37;-12,39;-12,133;-12,143;-14,-75;-14,-73;-14,-71;-14,-69;-14,-67;-14,-65;-14,-63;-14,-61;-14,-59;-14,-57;-14,-55;-14,-53;-14,-51;-14,-49;-14,-47;-14,-45;-14,-43;-14,-41;-14,-39;-14,13;-14,15;-14,17;-14,19;-14,21;-14,23;-14,25;-14,27;-14,29;-14,31;-14,33;-14,35;-14,37;-14,39;-14,49;-14,127;-14,131;-14,133;-14,135;-14,143;-16,-73;-16,-71;-16,-69;-16,-67;-16,-65;-16,-63;-16,-61;-16,-59;-16,-57;-16,-55;-16,-53;-16,-51;-16,-49;-16,-47;-16,-45;-16,-43;-16,-41;-16,-39;-16,13;-16,15;-16,17;-16,19;-16,21;-16,23;-16,25;-16,27;-16,29;-16,31;-16,33;-16,35;-16,37;-16,39;-16,47;-16,49;-16,125;-16,127;-16,129;-16,131;-16,133;-16,135;-16,137;-16,143;-16,145;-18,-69;-18,-67;-18,-65;-18,-63;-18,-61;-18,-59;-18,-57;-18,-55;-18,-53;-18,-51;-18,-49;-18,-47;-18,-45;-18,-43;-18,-41;-18,13;-18,15;-18,17;-18,19;-18,21;-18,23;-18,25;-18,27;-18,29;-18,31;-18,33;-18,35;-18,45;-18,47;-18,49;-18,123;-18,125;-18,127;-18,129;-18,131;-18,133;-18,135;-18,137;-18,139;-18,141;-18,143;-18,145;-20,-69;-20,-67;-20,-65;-20,-63;-20,-61;-20,-59;-20,-57;-20,-55;-20,-53;-20,-51;-20,-49;-20,-47;-20,-45;-20,-43;-20,-41;-20,13;-20,15;-20,17;-20,19;-20,21;-20,23;-20,25;-20,27;-20,29;-20,31;-20,33;-20,45;-20,47;-20,121;-20,123;-20,125;-20,127;-20,129;-20,131;-20,133;-20,135;-20,137;-20,139;-20,141;-20,143;-20,145;-20,147;-22,-69;-22,-67;-22,-65;-22,-63;-22,-61;-22,-59;-22,-57;-22,-55;-22,-53;-22,-51;-22,-49;-22,-47;-22,-45;-22,-43;-22,15;-22,17;-22,19;-22,21;-22,23;-22,25;-22,27;-22,29;-22,31;-22,33;-22,35;-22,45;-22,47;-22,115;-22,117;-22,119;-22,121;-22,123;-22,125;-22,127;-22,129;-22,131;-22,133;-22,135;-22,137;-22,139;-22,141;-22,143;-22,145;-22,147;-22,149;-24,-69;-24,-67;-24,-65;-24,-63;-24,-61;-24,-59;-24,-57;-24,-55;-24,-53;-24,-51;-24,-49;-24,-47;-24,15;-24,17;-24,19;-24,21;-24,23;-24,25;-24,27;-24,29;-24,31;-24,33;-24,35;-24,45;-24,47;-24,115;-24,117;-24,119;-24,121;-24,123;-24,125;-24,127;-24,129;-24,131;-24,133;-24,135;-24,137;-24,139;-24,141;-24,143;-24,145;-24,147;-24,149;-24,151;-26,-69;-26,-67;-26,-65;-26,-63;-26,-61;-26,-59;-26,-57;-26,-55;-26,-53;-26,-51;-26,-49;-26,15;-26,17;-26,19;-26,21;-26,23;-26,25;-26,27;-26,29;-26,31;-26,115;-26,117;-26,119;-26,121;-26,123;-26,125;-26,127;-26,129;-26,131;-26,133;-26,135;-26,137;-26,139;-26,141;-26,143;-26,145;-26,147;-26,149;-26,151;-26,153;-28,-71;-28,-69;-28,-67;-28,-65;-28,-63;-28,-61;-28,-59;-28,-57;-28,-55;-28,-53;-28,-51;-28,-49;-28,17;-28,19;-28,21;-28,23;-28,25;-28,27;-28,29;-28,31;-28,115;-28,117;-28,119;-28,121;-28,123;-28,125;-28,127;-28,129;-28,131;-28,133;-28,135;-28,137;-28,139;-28,141;-28,143;-28,145;-28,147;-28,149;-28,151;-28,153;-30,-71;-30,-69;-30,-67;-30,-65;-30,-63;-30,-61;-30,-59;-30,-57;-30,-55;-30,-53;-30,-51;-30,19;-30,21;-30,23;-30,25;-30,27;-30,29;-30,117;-30,119;-30,121;-30,123;-30,125;-30,127;-30,129;-30,131;-30,133;-30,135;-30,137;-30,139;-30,141;-30,143;-30,145;-30,147;-30,149;-30,151;-30,153;-32,-71;-32,-69;-32,-67;-32,-65;-32,-63;-32,-61;-32,-59;-32,-57;-32,-55;-32,-53;-32,19;-32,21;-32,23;-32,25;-32,27;-32,29;-32,117;-32,119;-32,121;-32,123;-32,125;-32,127;-32,133;-32,135;-32,137;-32,139;-32,141;-32,143;-32,145;-32,147;-32,149;-32,151;-34,-71;-34,-69;-34,-67;-34,-65;-34,-63;-34,-61;-34,-59;-34,-57;-34,-55;-34,19;-34,21;-34,117;-34,119;-34,139;-34,141;-34,143;-34,145;-34,147;-34,149;-34,151;-36,-71;-36,-69;-36,-67;-36,-65;-36,-63;-36,-61;-36,-59;-36,141;-36,143;-36,145;-36,147;-36,149;-38,-73;-38,-71;-38,-69;-38,-67;-38,-65;-38,-63;-38,-61;-38,-59;-38,141;-38,143;-38,147;-38,175;-38,177;-40,-73;-40,-71;-40,-69;-40,-67;-40,-65;-40,-63;-40,175;-42,-73;-42,-71;-42,-69;-42,-67;-42,-65;-42,147;-42,173;-44,-73;-44,-71;-44,-69;-44,-67;-44,169;-44,171;-46,-73;-46,-71;-46,-69;-46,167;-46,169;-48,-75;-48,-73;-48,-71;-48,-69;-48,-67;-50,-75;-50,-73;-50,-71;-50,-69;-52,-75;-52,-73;-52,-71;-52,-69;-52,-61;-52,-59;-54,-73;-54,-71;-54,-69";
+const ARCHIVE = [{"day":"2026-11-08","builtAt":"2026-11-09T00:34:29.806Z","judged":true,"digest":"Sandwich terns have rebuilt a colony on England's south coast three years after avian flu, and Brazil has enlarged a Pantanal national park by a quarter. Beavers are heading back to Loch Ness, California has legalised balcony solar for renters, and a new brain therapy put most PTSD patients in a trial into remission.","stories":[{"id":"24d451d739","title":"Dogs Can Sniff-Out Invasive Plant Species With High Accuracy to Curb Their Destruction","link":"https://www.goodnewsnetwork.org/dogs-can-sniff-out-invasive-plant-species-with-75pt-accuracy/","date":"2026-11-08T18:36:02.000Z","summary":"","source":"Good News Network","category":"planet","why":"Volunteer sniffer dogs in Germany learned to find invasive plants with high accuracy, helping native species.","place":{"name":"Leipzig, Germany","lat":51.34,"lon":12.37},"featured":false,"strength":"trial","help":"Learn the invasive plants in your area and pull them before they seed."},{"id":"f446d3e317","title":"Lucky Bird Found in Storm Drain a Mile From Home After Passing Driver Happens to Spot it Hopping in","link":"https://www.goodnewsnetwork.org/lucky-bird-found-in-storm-drain-a-mile-from-home/","date":"2026-11-08T14:08:15.000Z","summary":"","source":"Good News Network","category":"people","why":"A passing driver spotted a lost pet budgie in a storm drain a mile from home, and she is back with her owner.","place":{"name":"Northampton, England","lat":52.24,"lon":-0.9},"featured":false,"strength":null,"help":null},{"id":"1392d54fbc","title":"Dormice 'thrive' at National Trust site","link":"https://www.bbc.co.uk/news/articles/c50meerl8xp1o?at_medium=RSS&at_campaign=rss","date":"2026-11-08T12:22:05.000Z","summary":"","source":"BBC Science & Environment","category":"wildlife","why":"Dormice are thriving in 100 nest boxes across the Killerton estate in Devon.","place":{"name":"Killerton, Devon, England","lat":50.79,"lon":-3.45},"featured":false,"strength":"proven","help":"Leave hedges uncut and untidy corners in your garden for small mammals."},{"id":"e0d36d05cd","title":"Let a thousand blossoms bloom: Sydney’s jacarandas put on their spring show – in pictures","link":"https://www.theguardian.com/australia-news/gallery/2026/nov/08/sydney-jacaranda-season-in-pictures","date":"2026-11-07T19:00:20.000Z","summary":"","source":"The Guardian Environment","category":"planet","why":"Sydney's jacaranda trees are in full purple bloom for spring.","place":{"name":"Sydney, Australia","lat":-33.87,"lon":151.21},"featured":false,"strength":null,"help":null},{"id":"2648a8e408","title":"Baby Saved After Racing Heartbeat Detected by Family Doberman","link":"https://www.goodnewsnetwork.org/baby-saved-as-racing-heartbeat-detected-by-pet/","date":"2026-11-07T16:58:40.000Z","summary":"","source":"Good News Network","category":"people","why":"A family doberman kept fussing over a baby until his parents found his racing heart and got him treated.","place":null,"featured":false,"strength":null,"help":null},{"id":"119fe72af4","title":"Adventurer Finally Hugs Mom After 28-Year Walk Around the World From Home in UK","link":"https://www.goodnewsnetwork.org/adventurer-finally-hugs-mom-after-28-year-walk-around-the-world-from-home-in-uk/","date":"2026-11-07T14:11:37.000Z","summary":"","source":"Good News Network","category":"people","why":"Karl Bushby is home in Hull with his mother after a 28-year, 31,000-mile walk around the world.","place":{"name":"Hull, England","lat":53.74,"lon":-0.33},"featured":false,"strength":null,"help":null},{"id":"186947cb61","title":"Scientists discover Europe's ancient forests were nothing like we imagined","link":"https://www.sciencedaily.com/releases/2026/11/261104012333.htm","date":"2026-11-07T09:44:48.000Z","summary":"","source":"ScienceDaily","category":"discovery","why":"Europe was once mostly open woodland and flowered meadow, a finding that could guide how land is rewilded.","place":null,"featured":false,"strength":null,"help":null},{"id":"10fb0c4d7d","title":"Rubin Observatory discovers two hidden companions of the Milky Way. Hundreds more may be waiting","link":"https://www.sciencedaily.com/releases/2026/11/261104012252.htm","date":"2026-11-07T09:12:43.000Z","summary":"","source":"ScienceDaily","category":"discovery","why":"The Rubin Observatory found two unknown Milky Way companions after scanning only 7% of the sky.","place":null,"featured":false,"strength":null,"help":null},{"id":"62ef5ce13d","title":"People Around the World Help Buy Royal Estate for Wildlife Conservation","link":"https://www.goodnewsnetwork.org/people-around-the-world-help-buy-royal-estate-for-wildlife-conservation/","date":"2026-11-06T21:16:55.000Z","summary":"","source":"Good News Network","category":"wildlife","why":"Donors around the world raised millions to buy an estate where curlews, lapwings and rare bumblebees live.","place":null,"featured":false,"strength":"proven","help":"Give a little time or money to a local land trust that protects habitat near you."},{"id":"275a5c706f","title":"Man Spends 12 Days Returning Lost Cash a Laborer Needed for His Daughter","link":"https://www.goodnewsnetwork.org/man-spends-12-days-returning-lost-cash-a-laborer-needed-for-his-daughter/","date":"2026-11-06T16:30:31.000Z","summary":"","source":"Good News Network","category":"people","why":"A man in Brazil spent 12 days tracking down a labourer to return the cash he had saved for his daughter.","place":{"name":"Southern Brazil","lat":-27.6,"lon":-51},"featured":false,"strength":null,"help":"If you find lost money, hand it in or post a notice; it may be someone's whole savings."},{"id":"e9f0a0ce24","title":"In Alaska’s capital, food comes by water, air or, most often, community sharing","link":"https://www.theguardian.com/environment/2026/nov/06/alaska-juneau-food-access","date":"2026-11-06T15:00:46.000Z","summary":"","source":"The Guardian Environment","category":"people","why":"In Juneau, residents feed each other through deep traditions of sharing fish, game and garden food.","place":{"name":"Juneau, Alaska, USA","lat":58.3,"lon":-134.42},"featured":false,"strength":null,"help":"Share surplus garden produce with neighbours or a community fridge."},{"id":"189765247c","title":"Venomous Primate Believed Extinct for 100 Years Was Hiding in Plain Sight All Along","link":"https://www.goodnewsnetwork.org/venomous-primate-believed-extinct-for-100-years-was-hiding-in-plain-sight-all-along/","date":"2026-11-06T14:00:28.000Z","summary":"","source":"Good News Network","category":"wildlife","why":"The Bangka slow loris, once feared extinct, is confirmed alive thanks to local wildlife watchers.","place":{"name":"Bangka Island, Indonesia","lat":-2.1,"lon":106.1},"featured":false,"strength":null,"help":null},{"id":"e0e026759a","title":"Geothermal Utilities Power Wave of US Affordable Housing with 40% Energy Savings","link":"https://www.goodnewsnetwork.org/geothermal-utilities-power-wave-of-us-affordable-housing-with-40-energy-savings/","date":"2026-11-06T12:30:16.000Z","summary":"","source":"Good News Network","category":"planet","why":"Vermont Gas opened the state's first community geothermal network, cutting energy use in affordable homes by 40%.","place":{"name":"Vermont, USA","lat":44,"lon":-72.7},"featured":false,"strength":"trial","help":null},{"id":"9c41a51388","title":"Scientists just found dinosaur blood that survived 115 million years","link":"https://www.sciencedaily.com/releases/2026/11/261105224542.htm","date":"2026-11-06T11:28:01.000Z","summary":"","source":"ScienceDaily","category":"discovery","why":"Chemical traces of blood survived 115 million years inside dinosaur bones.","place":null,"featured":false,"strength":null,"help":null},{"id":"835761b55c","title":"Don't miss: Meteor showers, fireballs, and a supermoon light up November's night sky","link":"https://www.sciencedaily.com/releases/2026/11/261105224547.htm","date":"2026-11-06T08:21:08.000Z","summary":"","source":"ScienceDaily","category":"discovery","why":"November brings meteor fireballs, a Mars-Jupiter pairing and a supermoon for skywatchers.","place":null,"featured":false,"strength":null,"help":"Step outside on a clear night this month and look up for the supermoon."},{"id":"a0888cd9ee","title":"The Spark: When Communities Own the Land, Housing Stays Affordable","link":"https://reasonstobecheerful.world/the-spark-community-land-trusts/","date":"2026-11-06T08:00:21.000Z","summary":"","source":"Reasons to be Cheerful","category":"people","why":"Community land trusts keep homes affordable by holding the land in common, and more towns are trying them.","place":null,"featured":false,"strength":"proven","help":"Find out whether a community land trust works in your area and join as a member."},{"id":"794bc3250f","title":"An anti-aging drug may help protect the brain before Alzheimer's symptoms begin","link":"https://www.sciencedaily.com/releases/2026/11/261104084017.htm","date":"2026-11-06T01:11:19.000Z","summary":"","source":"ScienceDaily","category":"health","why":"Four weeks of low-dose rapamycin improved brain blood flow in people at genetic risk of Alzheimer's.","place":null,"featured":false,"strength":"early","help":null},{"id":"2dccadf9e2","title":"The butterfly effect: a brighter way to make paint?","link":"https://www.positive.news/science/the-butterfly-effect-a-brighter-way-to-make-paint/","date":"2026-11-05T17:32:20.000Z","summary":"","source":"Positive News","category":"discovery","why":"Researchers are studying butterfly wings to make colourful paint without harmful chemical pigments.","place":null,"featured":false,"strength":"early","help":null},{"id":"8a4d57e5d5","title":"400-yo Shipwreck Puzzle Finally Cracked After More Than 20 Years of Mystery","link":"https://www.goodnewsnetwork.org/400-yo-padlock-code-finally-cracked-more-than-20-years-after-being-found-in-shipwreck-treasure/","date":"2026-11-05T16:30:16.000Z","summary":"","source":"Good News Network","category":"discovery","why":"A hospital CT scanner revealed how a 400-year-old padlock from a Welsh shipwreck worked.","place":{"name":"Wales","lat":52.3,"lon":-3.8},"featured":false,"strength":null,"help":null},{"id":"4c3c67fa26","title":"The Montana Ranch Where Autistic People Are Wranglers and Guides","link":"https://reasonstobecheerful.world/montana-guest-ranch-employing-autistic-people/","date":"2026-11-05T15:35:06.000Z","summary":"","source":"Reasons to be Cheerful","category":"people","why":"A Montana ranch employs autistic adults as guides, wranglers and cooks, building skills and independence.","place":{"name":"Montana, USA","lat":45.7,"lon":-110.6},"featured":false,"strength":"proven","help":null},{"id":"fc60b1abe4","title":"Seabirds See Miracle Recovery After Avian Flu Wiped Them Out","link":"https://www.goodnewsnetwork.org/miracle-recovery-sees-seabirds-reclaim-former-colony-after-avian-flu-wiped-them-out/","date":"2026-11-05T12:00:52.000Z","summary":"","source":"Good News Network","category":"wildlife","why":"Sandwich terns have rebuilt a colony on England's south coast three years after avian flu wiped it out.","place":{"name":"South coast, England","lat":50.7,"lon":-1.5},"featured":true,"strength":"proven","help":"Keep dogs on leads near nesting beaches and give seabird colonies space."},{"id":"4a9bb134f6","title":"Scientists solve 30-year-old mystery and discover a hidden defense against inflammation","link":"https://www.sciencedaily.com/releases/2026/11/261101010554.htm","date":"2026-11-05T11:05:46.000Z","summary":"","source":"ScienceDaily","category":"health","why":"Scientists found how healthy cells shield themselves from inflammation, a lead for new treatments.","place":null,"featured":false,"strength":"early","help":null},{"id":"543b7d9bb5","title":"Personalized brain therapy hits 68 percent remission for PTSD","link":"https://www.optimistdaily.com/2026/11/personalized-brain-therapy-hits-68-percent-remission-for-ptsd/","date":"2026-11-05T00:00:30.000Z","summary":"","source":"The Optimist Daily","category":"health","why":"A newly FDA-cleared personalised brain therapy put 68 percent of PTSD patients into remission in trials.","place":{"name":"USA","lat":39.8,"lon":-98.6},"featured":false,"strength":"proven","help":null},{"id":"cf85a14ec4","title":"Brazil Expands Protected Area for ‘One of the Richest and Most Sensitive Biomes on the Planet’","link":"https://www.goodnewsnetwork.org/brazil-expands-protected-area-for-one-of-the-richest-and-most-sensitive-biomes-on-the-planet/","date":"2026-11-04T19:30:10.000Z","summary":"","source":"Good News Network","category":"planet","why":"Brazil enlarged Pantanal Matogrossense National Park by over a quarter, protecting more of the great wetland.","place":{"name":"Pantanal, Mato Grosso, Brazil","lat":-17.8,"lon":-57.5},"featured":false,"strength":"policy","help":null},{"id":"620500f96a","title":"Student-run Automotive Shop Opens to the Public in Houston Where Every Oil Change Helps the Next Generation","link":"https://www.goodnewsnetwork.org/student-run-automotive-shop-opens-to-the-public-in-houston-where-every-oil-change-helps-the-next-generation/","date":"2026-11-04T16:30:37.000Z","summary":"","source":"Good News Network","category":"people","why":"High school students in Houston opened a public auto shop where each oil change trains the next generation.","place":{"name":"Fifth Ward, Houston, USA","lat":29.77,"lon":-95.34},"featured":false,"strength":"trial","help":"Get your car serviced at a student-run or training garage if one is near you."},{"id":"6e4a5cbf54","title":"Woman Becomes First Person to Swim the Entire California Coastline","link":"https://www.goodnewsnetwork.org/woman-becomes-first-person-to-swim-the-entire-california-coastline/","date":"2026-11-04T12:30:19.000Z","summary":"","source":"Good News Network","category":"people","why":"Catherine Breed became the first person to swim the whole California coast, 900 miles in 111 days.","place":{"name":"California, USA","lat":36.8,"lon":-121.9},"featured":false,"strength":null,"help":null},{"id":"917d636c72","title":"NASA is racing against time to save the Hubble Space Telescope","link":"https://www.sciencedaily.com/releases/2026/11/261104012254.htm","date":"2026-11-04T11:22:33.000Z","summary":"","source":"ScienceDaily","category":"discovery","why":"NASA is studying a plan to lift Hubble's orbit and keep the telescope working longer.","place":null,"featured":false,"strength":"early","help":null},{"id":"99f1d47061","title":"Who needs a golden ticket? The race to future-proof chocolate","link":"https://www.positive.news/society/who-needs-a-golden-ticket-the-race-to-future-proof-chocolate/","date":"2026-11-04T10:47:49.000Z","summary":"","source":"Positive News","category":"planet","why":"A student made chocolate from cocoa grown in England, hinting at hardier crops for a warming world.","place":{"name":"England","lat":52.5,"lon":-1.5},"featured":false,"strength":"early","help":null},{"id":"6cdd1efd67","title":"Maya Higa built a wildlife sanctuary on Twitch, funded by the people who watch it","link":"https://www.optimistdaily.com/2026/11/maya-higa-built-a-wildlife-sanctuary-on-twitch-funded-by-the-people-who-watch-it/","date":"2026-11-04T00:00:49.000Z","summary":"","source":"The Optimist Daily","category":"wildlife","why":"Streamer Maya Higa built a wildlife sanctuary funded by the people who watch it online.","place":null,"featured":false,"strength":null,"help":null},{"id":"36f3ecbc3f","title":"Stanford scientists discovered bleached coral can heal through touch","link":"https://www.optimistdaily.com/2026/11/stanford-scientists-discovered-bleached-coral-can-heal-through-touch/","date":"2026-11-04T00:00:01.000Z","summary":"","source":"The Optimist Daily","category":"planet","why":"Stanford scientists saw a healthy coral fragment help a bleached one recover simply by touching it.","place":{"name":"Stanford, California, USA","lat":37.43,"lon":-122.17},"featured":false,"strength":"early","help":null},{"id":"513762e6e0","title":"Loch Ness Is About to Welcome a New Monster Not Seen There in 500 Years–the Beaver!","link":"https://www.goodnewsnetwork.org/loch-ness-is-about-to-welcome-a-new-monster-the-beaver-500-years-since-it-last-lived-there/","date":"2026-11-03T19:30:09.000Z","summary":"","source":"Good News Network","category":"wildlife","why":"Beavers are returning to Loch Ness for the first time in about 500 years.","place":{"name":"Loch Ness, Scotland","lat":57.3,"lon":-4.45},"featured":false,"strength":"policy","help":null},{"id":"ec874ad0b6","title":"He Donated His Ultra-rare Blood 545 Times While Visiting Every Blood Bank in Australia","link":"https://www.goodnewsnetwork.org/ultra-rare-blood-carrier-finishes-grand-tour-around-australia-to-donate-at-all-85-blood-banks/","date":"2026-11-03T16:30:35.000Z","summary":"","source":"Good News Network","category":"health","why":"Trevor Bergman donated his ultra-rare blood 545 times, visiting all 85 donation centres in Australia.","place":{"name":"Australia","lat":-25.3,"lon":133.8},"featured":false,"strength":"proven","help":"Book a blood donation; most donors can give every few weeks."},{"id":"eb01a9df8d","title":"What if we stop treating social care like a service? This village shows the way","link":"https://www.positive.news/society/what-if-we-stopped-treating-social-care-like-a-service/","date":"2026-11-03T14:34:15.000Z","summary":"","source":"Positive News","category":"people","why":"An English village built its own social care around shared living and looking after each other.","place":{"name":"England","lat":52.5,"lon":-1.5},"featured":false,"strength":"trial","help":"Check in on an older neighbour this week; small regular visits matter."},{"id":"03809a7f89","title":"Scientists identify two overlooked skills that predict reading success","link":"https://www.sciencedaily.com/releases/2026/11/261102202845.htm","date":"2026-11-03T12:15:18.000Z","summary":"","source":"ScienceDaily","category":"progress","why":"A large study found sound skills, not intelligence, best predict reading success, pointing to better teaching.","place":null,"featured":false,"strength":null,"help":"Play rhyming and sound games with young children you read with."},{"id":"e66d3b28d0","title":"All 5 genetic “letters” of DNA and RNA discovered in a 4.5-billion-year-old asteroid","link":"https://www.sciencedaily.com/releases/2026/11/261102075903.htm","date":"2026-11-03T10:58:24.000Z","summary":"","source":"ScienceDaily","category":"discovery","why":"All five DNA and RNA bases were found in pristine samples from asteroid Ryugu.","place":null,"featured":false,"strength":null,"help":null},{"id":"9099393b66","title":"Scientists reverse liver cell aging and cut Alzheimer’s-linked protein in half","link":"https://www.sciencedaily.com/releases/2026/10/261031221155.htm","date":"2026-11-03T00:34:59.000Z","summary":"","source":"ScienceDaily","category":"health","why":"An experimental drug rejuvenated ageing liver cells in rats and halved an Alzheimer's-linked protein.","place":null,"featured":false,"strength":"early","help":null},{"id":"b3a6768018","title":"California legalizes balcony solar for renters and beyond","link":"https://www.optimistdaily.com/2026/11/california-legalizes-balcony-solar-for-renters-and-beyond/","date":"2026-11-02T00:00:33.000Z","summary":"","source":"The Optimist Daily","category":"planet","why":"California legalised plug-in balcony solar, letting renters make their own power.","place":{"name":"California, USA","lat":36.8,"lon":-119.4},"featured":false,"strength":"policy","help":null},{"id":"29fcf81fab","title":"Ancient ape fossil in Egypt could rewrite the story of human origins","link":"https://www.sciencedaily.com/releases/2026/10/261031011638.htm","date":"2026-11-01T10:32:46.000Z","summary":"","source":"ScienceDaily","category":"discovery","why":"An 18-million-year-old ape fossil from Egypt adds a new chapter to the story of human origins.","place":{"name":"Egypt","lat":26.8,"lon":30.8},"featured":false,"strength":null,"help":null},{"id":"65b36c6602","title":"Scientists discover the hidden “muscles” trees use to straighten themselves","link":"https://www.sciencedaily.com/releases/2026/10/261030003006.htm","date":"2026-11-01T02:44:28.000Z","summary":"","source":"ScienceDaily","category":"discovery","why":"Trees sense their own shape and use muscle-like wood to straighten their trunks.","place":null,"featured":false,"strength":null,"help":null},{"id":"3b113679c8","title":"A mysterious 4,000-year-old wall is rewriting North Africa’s history","link":"https://www.sciencedaily.com/releases/2026/10/261030003022.htm","date":"2026-10-31T13:09:49.000Z","summary":"","source":"ScienceDaily","category":"discovery","why":"A 4,000-year-old wall in Morocco shows early North African communities were more advanced than thought.","place":{"name":"Morocco","lat":31.8,"lon":-7.1},"featured":false,"strength":null,"help":null},{"id":"c7ea81d1e8","title":"Astronauts just gave the International Space Station a powerful upgrade","link":"https://www.sciencedaily.com/releases/2026/10/261030002931.htm","date":"2026-10-30T06:12:55.000Z","summary":"","source":"ScienceDaily","category":"progress","why":"Astronauts installed a new solar array on the space station, boosting its power supply.","place":null,"featured":false,"strength":null,"help":null},{"id":"fe147c4007","title":"The Student Exchange Program That Never Leaves the U.S.","link":"https://reasonstobecheerful.world/america-student-exchange-program-empathy/","date":"2026-10-29T08:00:15.000Z","summary":"","source":"Reasons to be Cheerful","category":"people","why":"A domestic exchange programme lets American students live in very different communities in their own country.","place":{"name":"USA","lat":39.8,"lon":-98.6},"featured":false,"strength":"trial","help":null},{"id":"7e42a34870","title":"Smartphones, ancient tracking skills and a future for desert lions","link":"https://www.positive.news/society/smartphones-ancient-tracking-skills-and-a-future-for-desert-lions/","date":"2026-10-29T07:00:10.000Z","summary":"","source":"Positive News","category":"wildlife","why":"Rangers in Namibia blend live tracking data with traditional skills to help farmers live alongside desert lions.","place":{"name":"Kunene, Namibia","lat":-19,"lon":13.5},"featured":false,"strength":"proven","help":null},{"id":"e4c6014447","title":"Finally, Something Americans Agree On!","link":"https://reasonstobecheerful.world/data-center-opposition-ai-republicans-democrats-bipartisan-agreement/","date":"2026-10-27T08:00:32.000Z","summary":"","source":"Reasons to be Cheerful","category":"people","why":"Ohio farmers and neighbours across divides found common ground in protecting their farmland.","place":{"name":"Central Ohio, USA","lat":40.2,"lon":-82.9},"featured":false,"strength":null,"help":null},{"id":"f5f54b8895","title":"Cream of the crop: one brand’s quiet quest to reinvent the dairy industry","link":"https://www.positive.news/environment/cream-of-the-crop-one-brands-quiet-quest-to-reinvent-the-dairy-industry/","date":"2026-10-27T07:00:17.000Z","summary":"","source":"Positive News","category":"planet","why":"A dairy brand is testing regenerative farming to make milk production kinder to soil and more resilient.","place":null,"featured":false,"strength":"trial","help":null},{"id":"0f9a2e476c","title":"Want the News to Unite People? Let Them Report It","link":"https://reasonstobecheerful.world/want-the-news-to-unite-people-let-them-report-it/","date":"2026-10-26T14:54:18.000Z","summary":"","source":"Reasons to be Cheerful","category":"people","why":"Trained residents in Akron cover school board meetings, filling a local news gap for their neighbours.","place":{"name":"Akron, Ohio, USA","lat":41.08,"lon":-81.52},"featured":false,"strength":"proven","help":"Attend a local council or school board meeting and share notes with neighbours."},{"id":"34d57b777c","title":"‘It’s all God’s creation’: farmers continue a ‘Jewishly inspired’ agrarian tradition","link":"https://www.theguardian.com/world/ng-interactive/2026/oct/22/jewish-farmers-tradition-agriculture","date":"2026-10-22T19:18:11.000Z","summary":"","source":"The Guardian Environment","category":"planet","why":"A growing number of Jewish Americans are finding community and purpose in small sustainable farms.","place":{"name":"USA","lat":39.8,"lon":-98.6},"featured":false,"strength":null,"help":null},{"id":"e991620d3d","title":"How to move 1,300 plants for Kew's Palm House mega makeover","link":"https://www.bbc.co.uk/news/videos/c914d43gg2zdo?at_medium=RSS&at_campaign=rss","date":"2026-10-02T08:53:30.000Z","summary":"","source":"BBC Science & Environment","category":"planet","why":"Kew is carefully moving 1,300 plants so its famous Palm House can be restored.","place":{"name":"Kew, London, England","lat":51.48,"lon":-0.29},"featured":false,"strength":null,"help":null},{"id":"7b91d8dd06","title":"First dinosaur bone from Antarctica found in a drawer","link":"https://www.bbc.co.uk/news/articles/cdep67jnn9zo?at_medium=RSS&at_campaign=rss","date":"2026-06-29T05:10:46.000Z","summary":"","source":"BBC Science & Environment","category":"discovery","why":"The first dinosaur bone from Antarctica, a titanosaur tail, was found in a museum drawer.","place":null,"featured":false,"strength":null,"help":null}]}];
+const DAYS = [DATA, ...(ARCHIVE || []).filter(d => d && Array.isArray(d.stories) && d.stories.length)];
+let dayIdx = 0, VIEW = DATA;
+const STRENGTH = { early: "Early research", trial: "Trial or pilot", proven: "Proven at scale", policy: "Now policy" };
+const STRENGTH_TIP = {
+  early: "A first result: lab, animal or small human study. Promising, but not yet ready for people.",
+  trial: "Being tried in practice: a pilot, a clinical trial or a first site.",
+  proven: "Already working at scale, or approved for use.",
+  policy: "Written into law or an official decision.",
+};
+
+const CATS = [
+  { id: "all", label: "All" },
+  { id: "planet", label: "Planet" },
+  { id: "wildlife", label: "Wildlife" },
+  { id: "health", label: "Health" },
+  { id: "discovery", label: "Discovery" },
+  { id: "people", label: "Kindness" },
+  { id: "progress", label: "Progress" },
+];
+const LABEL = Object.fromEntries(CATS.map(c => [c.id, c.label]));
+const SVGNS = "http://www.w3.org/2000/svg";
+const TAU = Math.PI * 2;
+const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+
+function el(tag, attrs = {}, ...kids) {
+  const n = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) {
+    if (k === "class") n.className = v; else if (k === "text") n.textContent = v; else n.setAttribute(k, v);
+  }
+  for (const k of kids) if (k) n.append(k);
+  return n;
+}
+function sv(tag, attrs = {}) {
+  const n = document.createElementNS(SVGNS, tag);
+  for (const [k, v] of Object.entries(attrs)) n.setAttribute(k, v);
+  return n;
+}
+function ago(iso) {
+  const m = Math.max(1, Math.round((Date.now() - new Date(iso)) / 60000));
+  if (m < 60) return m + " min ago";
+  const h = Math.round(m / 60);
+  if (h < 24) return h + (h === 1 ? " hour ago" : " hours ago");
+  const d = Math.round(h / 24);
+  if (d < 14) return d + (d === 1 ? " day ago" : " days ago");
+  return new Date(iso).toLocaleDateString(undefined, { day: "numeric", month: "short" });
+}
+function safeLink(u) { return /^https?:\/\//i.test(u) ? u : "#"; }
+
+/* ---------- Geometry ---------- */
+// Hexagonal lattice points of spacing s within distance maxR of the origin, one lattice axis pointing up.
+function lattice(s, maxR) {
+  const pts = [];
+  const n = Math.ceil(maxR / s) + 1;
+  for (let i = -n; i <= n; i++) for (let j = -n; j <= n; j++) {
+    const x = s * (i + j / 2), y = s * (j * Math.sqrt(3) / 2);
+    // rotate 90deg so one axis points up
+    const px = -y, py = -x;
+    if (Math.hypot(px, py) <= maxR + 1e-6) pts.push([px, py]);
+  }
+  return pts.sort((a, b) => Math.hypot(...a) - Math.hypot(...b) || Math.atan2(a[1], a[0]) - Math.atan2(b[1], b[0]));
+}
+function ring(n, r, start = -Math.PI / 2) {
+  return Array.from({ length: n }, (_, k) => [r * Math.cos(start + k * TAU / n), r * Math.sin(start + k * TAU / n)]);
+}
+
+// Fruit of Life centres: centre, six at 2p, six at 4p (p = circle radius). Metatron's Cube joins all 13.
+function fruitCentres(p) { return [[0, 0], ...ring(6, 2 * p), ...ring(6, 4 * p)]; }
+
+/* ---------- Masthead: Seed -> Flower -> Fruit -> Metatron ---------- */
+const STAGES = [
+  { until: 1.6, text: "Seed of Life · 7 circles" },
+  { until: 3.6, text: "Flower of Life · 19 circles" },
+  { until: 5.0, text: "Fruit of Life · 13 circles" },
+  { until: Infinity, text: "Metatron's Cube · 13 circles · 78 lines" },
+];
+function buildMasthead(size) {
+  const p = size / 2 / 5.35;           // circle radius; figure reaches 5p
+  const items = [];
+  const seedPts = lattice(p, p);       // 7
+  const flowerPts = lattice(p, 2 * p); // 19
+  seedPts.forEach((c, i) => items.push({ kind: "circle", c, r: p, t0: i * 0.18, dur: 0.75, layer: "flower" }));
+  flowerPts.slice(7).forEach((c, i) => items.push({ kind: "circle", c, r: p, t0: 1.5 + i * 0.1, dur: 0.7, layer: "flower" }));
+  items.push({ kind: "circle", c: [0, 0], r: 3 * p, t0: 2.9, dur: 0.8, layer: "flower" });
+  const fruit = fruitCentres(p);
+  fruit.forEach((c, i) => items.push({ kind: "circle", c, r: p, t0: 3.7 + i * 0.09, dur: 0.6, layer: "fruit" }));
+  const lines = [];
+  for (let a = 0; a < 13; a++) for (let b = a + 1; b < 13; b++) lines.push([fruit[a], fruit[b]]);
+  lines.sort((u, v) => Math.hypot(u[0][0] - u[1][0], u[0][1] - u[1][1]) - Math.hypot(v[0][0] - v[1][0], v[0][1] - v[1][1]));
+  lines.forEach((l, i) => items.push({ kind: "line", a: l[0], b: l[1], t0: 5.0 + i * 0.022, dur: 0.5, layer: "cube" }));
+  return { p, items, end: 5.0 + 78 * 0.022 + 0.5 + 0.6 };
+}
+
+const seedCanvas = document.getElementById("seed");
+let mast = null, startT = null, lastStage = -1;
+function drawMasthead(t) {
+  const r = seedCanvas.getBoundingClientRect();
+  const dpr = Math.min(2, window.devicePixelRatio || 1);
+  if (seedCanvas.width !== Math.round(r.width * dpr)) { seedCanvas.width = Math.round(r.width * dpr); seedCanvas.height = Math.round(r.height * dpr); mast = null; }
+  if (!mast) mast = buildMasthead(r.width);
+  const g = seedCanvas.getContext("2d");
+  g.setTransform(dpr, 0, 0, dpr, 0, 0);
+  g.clearRect(0, 0, r.width, r.height);
+  g.translate(r.width / 2, r.height / 2);
+  const col = { flower: css("--line"), fruit: css("--gold"), cube: css("--gold") };
+  const width = { flower: 0.8, fruit: 1.5, cube: 0.7 };
+  const alpha = { flower: 0.55, fruit: 1, cube: 0.6 };
+  for (const it of mast.items) {
+    // ghost of the finished figure, so the frame is never empty
+    g.globalAlpha = 0.12; g.strokeStyle = col[it.layer]; g.lineWidth = 0.6;
+    g.beginPath();
+    if (it.kind === "circle") g.arc(it.c[0], it.c[1], it.r, 0, TAU); else { g.moveTo(...it.a); g.lineTo(...it.b); }
+    g.stroke();
+    const k = Math.min(1, Math.max(0, (t - it.t0) / it.dur));
+    if (k <= 0) continue;
+    const e = 1 - Math.pow(1 - k, 3);
+    g.globalAlpha = alpha[it.layer]; g.lineWidth = width[it.layer];
+    g.beginPath();
+    if (it.kind === "circle") g.arc(it.c[0], it.c[1], it.r, -Math.PI / 2, -Math.PI / 2 + TAU * e);
+    else { g.moveTo(...it.a); g.lineTo(it.a[0] + (it.b[0] - it.a[0]) * e, it.a[1] + (it.b[1] - it.a[1]) * e); }
+    g.stroke();
+  }
+  // the sun at the centre of the seed
+  const s = Math.min(1, Math.max(0, (t - (mast.end - 0.9)) / 0.9));
+  const sunR = mast.p * 0.62;
+  g.globalAlpha = 0.25 + 0.75 * s;
+  const grad = g.createRadialGradient(0, 0, 0, 0, 0, sunR);
+  grad.addColorStop(0, css("--sun-a")); grad.addColorStop(1, css("--sun-b"));
+  g.fillStyle = grad; g.beginPath(); g.arc(0, 0, sunR, 0, TAU); g.fill();
+  g.globalAlpha = 1;
+  const found = STAGES.findIndex(st => t < st.until);
+  const stage = found < 0 ? STAGES.length - 1 : found;
+  if (stage !== lastStage) { lastStage = stage; document.getElementById("stage").textContent = STAGES[stage].text; }
+}
+function animateMasthead(now) {
+  if (startT === null) startT = now;
+  const t = (now - startT) / 1000;
+  drawMasthead(t);
+  if (t < mast.end) requestAnimationFrame(animateMasthead);
+}
+
+/* ---------- Background lattice tile + chain dividers ---------- */
+function flowerTile() {
+  const w = 40, h = 40 * Math.sqrt(3), r = 40;
+  let c = "";
+  for (let j = -2; j <= 4; j++) for (let i = -2; i <= 3; i++) {
+    const x = i * w + (j % 2 ? w / 2 : 0), y = j * h / 2;
+    c += `<circle cx="${x.toFixed(2)}" cy="${y.toFixed(2)}" r="${r}"/>`;
+  }
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h.toFixed(3)}" viewBox="0 0 ${w} ${h.toFixed(3)}"><g fill="none" stroke="#000" stroke-width="0.7">${c}</g></svg>`;
+  document.documentElement.style.setProperty("--fol", `url("data:image/svg+xml,${encodeURIComponent(svg)}")`);
+}
+let chainId = 0;
+function drawChains() {
+  document.querySelectorAll("[data-chain]").forEach(svg => {
+    const id = "vc" + (chainId++);
+    svg.innerHTML = "";
+    const defs = sv("defs");
+    const pat = sv("pattern", { id, width: 22, height: 24, patternUnits: "userSpaceOnUse" });
+    [-22, 0, 22].forEach(x => pat.append(sv("circle", { cx: x + 11, cy: 12, r: 11, fill: "none", stroke: "currentColor", "stroke-width": 1 })));
+    defs.append(pat); svg.append(defs);
+    const fade = "m" + id;
+    const grad = sv("linearGradient", { id: fade + "g" });
+    [["0", "0"], [".2", "1"], [".8", "1"], ["1", "0"]].forEach(([o, a]) => grad.append(sv("stop", { offset: o, "stop-color": "#fff", "stop-opacity": a })));
+    const mask = sv("mask", { id: fade });
+    mask.append(sv("rect", { width: "100%", height: "100%", fill: `url(#${fade}g)` }));
+    defs.append(grad, mask);
+    svg.append(sv("rect", { width: "100%", height: "100%", fill: `url(#${id})`, mask: `url(#${fade})` }));
+  });
+}
+
+/* ---------- Topic glyphs, one per petal ---------- */
+function glyph(cat) {
+  const s = sv("svg", { class: "glyph", viewBox: "-12 -12 24 24", "aria-hidden": "true" });
+  const poly = pts => sv("polygon", { points: pts.map(p => p.map(v => v.toFixed(2)).join(",")).join(" ") });
+  const add = n => s.append(n);
+  switch (cat) {
+    case "planet": add(sv("circle", { r: 10 })); add(poly(ring(6, 10))); break;
+    case "wildlife": add(sv("circle", { cx: -3.6, r: 7 })); add(sv("circle", { cx: 3.6, r: 7 })); break;
+    case "health": add(poly(ring(3, 10.5))); add(poly(ring(3, 10.5, Math.PI / 2))); break;
+    case "discovery": add(poly(ring(3, 10.5))); add(sv("circle", { r: 5.2 })); add(sv("circle", { r: 1.2 })); break;
+    case "people": add(sv("circle", { r: 4.2 })); ring(6, 4.2).forEach(([x, y]) => add(sv("circle", { cx: x, cy: y, r: 4.2 }))); break;
+    default: { const h = ring(6, 10); add(poly(h)); [0, 2, 4].forEach(i => add(sv("line", { x1: 0, y1: 0, x2: h[i][0], y2: h[i][1] }))); }
+  }
+  return s;
+}
+
+/* ---------- Seed of Life filter ---------- */
+let current = "all";
+try { const v = localStorage.getItem("sunward-topic"); if (v && LABEL[v]) current = v; } catch (e) {}
+
+function buildRosette() {
+  const host = document.getElementById("rosette");
+  const R = 60, V = 150; // viewBox half-size
+  const svg = sv("svg", { viewBox: `${-V} ${-V} ${2 * V} ${2 * V}`, "aria-hidden": "true" });
+  svg.append(sv("circle", { r: 2 * R }));
+  const order = CATS.slice(1);
+  const centres = [[0, 0], ...ring(6, R)];
+  const circles = {};
+  circles.all = sv("circle", { r: R, class: "petal c-all" });
+  svg.append(circles.all);
+  order.forEach((c, i) => {
+    const [x, y] = centres[i + 1];
+    circles[c.id] = sv("circle", { cx: x.toFixed(2), cy: y.toFixed(2), r: R, class: "petal c-" + c.id });
+    svg.append(circles[c.id]);
+  });
+  host.replaceChildren(svg);
+  const counts = { all: VIEW.stories.length };
+  order.forEach(c => counts[c.id] = VIEW.stories.filter(s => s.category === c.id).length);
+  const place = (id, x, y) => {
+    const b = el("button", { type: "button", class: "petal-btn c-" + id + (id === "all" ? " all" : ""), id: "petal-" + id },
+      el("span", { text: LABEL[id] }), el("span", { class: "n", text: String(counts[id]) }));
+    b.style.left = (50 + x / (2 * V) * 100) + "%";
+    b.style.top = (50 + y / (2 * V) * 100) + "%";
+    if (!counts[id]) b.disabled = true;
+    b.addEventListener("click", () => { current = id; try { localStorage.setItem("sunward-topic", id); } catch (e) {} render(); });
+    b.addEventListener("mouseenter", () => circles[id].classList.add("hover"));
+    b.addEventListener("mouseleave", () => circles[id].classList.remove("hover"));
+    host.append(b);
+  };
+  place("all", 0, 0);
+  order.forEach((c, i) => { const [x, y] = ring(6, R * 1.55)[i]; place(c.id, x, y); });
+  return circles;
+}
+
+/* ---------- Lead art: a Flower of Life seeded by the headline ---------- */
+function drawLeadArt(canvas, s) {
+  const r = canvas.getBoundingClientRect();
+  const dpr = Math.min(2, window.devicePixelRatio || 1);
+  canvas.width = Math.max(1, Math.round(r.width * dpr)); canvas.height = Math.max(1, Math.round(r.height * dpr));
+  const g = canvas.getContext("2d");
+  g.setTransform(dpr, 0, 0, dpr, r.width / 2 * dpr, r.height / 2 * dpr);
+  let seed = [...s.title].reduce((a, c) => (a * 31 + c.charCodeAt(0)) >>> 0, 11);
+  const rnd = () => ((seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296);
+  const p = r.width / 2 / 3.3;
+  const topic = css("--" + s.category) || css("--gold");
+  g.rotate(Math.floor(rnd() * 6) * Math.PI / 30);
+  const pts = lattice(p, 2 * p);
+  // filled petals: a seeded set of lattice circles, washed in the topic colour
+  const chosen = pts.filter(() => rnd() < 0.32);
+  g.fillStyle = topic;
+  chosen.forEach(([x, y]) => { g.globalAlpha = 0.09; g.beginPath(); g.arc(x, y, p, 0, TAU); g.fill(); });
+  g.globalAlpha = 0.85; g.strokeStyle = topic; g.lineWidth = 1;
+  pts.forEach(([x, y]) => { g.beginPath(); g.arc(x, y, p, 0, TAU); g.stroke(); });
+  g.strokeStyle = css("--gold"); g.lineWidth = 1.6; g.globalAlpha = 1;
+  g.beginPath(); g.arc(0, 0, 3 * p, 0, TAU); g.stroke();
+  g.lineWidth = 0.8; g.globalAlpha = 0.6;
+  g.beginPath(); g.arc(0, 0, 3 * p + 6, 0, TAU); g.stroke();
+  // star of the chosen petals' centres
+  g.globalAlpha = 0.7; g.lineWidth = 1;
+  const star = ring(6, Math.sqrt(3) * p, -Math.PI / 2 + Math.PI / 6);
+  [[0, 2, 4], [1, 3, 5]].forEach(tri => { g.beginPath(); tri.forEach((i, k) => k ? g.lineTo(...star[i]) : g.moveTo(...star[i])); g.closePath(); g.stroke(); });
+  const grad = g.createRadialGradient(0, 0, 0, 0, 0, p * 0.55);
+  grad.addColorStop(0, css("--sun-a")); grad.addColorStop(1, css("--sun-b"));
+  g.globalAlpha = 1; g.fillStyle = grad; g.beginPath(); g.arc(0, 0, p * 0.55, 0, TAU); g.fill();
+}
+
+/* ---------- Reading: search, new since last visit, calm mode, daily brief ---------- */
+let query = "";
+let calmOn = false;
+let lastSeen = null;
+function store(k, v) { try { if (v === null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch (e) {} }
+function load(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+function isNew(s) { return !!lastSeen && s.date > lastSeen; }
+function matches(s) {
+  if (!query) return true;
+  const hay = [s.title, s.summary, s.why, s.help, s.source, s.place && s.place.name].join(" ").toLowerCase();
+  return query.toLowerCase().split(/\s+/).filter(Boolean).every(w => hay.includes(w));
+}
+function setCalm(on) {
+  calmOn = on;
+  document.documentElement.classList.toggle("calm", on);
+  const b = document.getElementById("calm");
+  b.setAttribute("aria-pressed", String(on));
+  b.textContent = on ? "Calm reading on" : "Calm reading";
+  store("sunward-calm", on ? "1" : null);
+}
+function initReading() {
+  lastSeen = load("sunward-seen");
+  store("sunward-seen", DATA.builtAt > new Date().toISOString() ? DATA.builtAt : new Date().toISOString());
+  if (load("sunward-calm") === "1") setCalm(true);
+  document.getElementById("calm").addEventListener("click", () => { setCalm(!calmOn); if (calmOn) drawMasthead(Infinity); });
+  const q = document.getElementById("q");
+  let t;
+  q.addEventListener("input", () => { clearTimeout(t); t = setTimeout(() => { query = q.value.trim(); render(); }, 120); });
+  const brief = document.getElementById("brief");
+  if (DATA.digest) { brief.querySelector("span.text").textContent = DATA.digest; brief.hidden = false; }
+  const fresh = lastSeen ? DATA.stories.filter(isNew).length : 0;
+  const note = document.getElementById("newnote");
+  if (fresh) { note.textContent = fresh === 1 ? "1 story is new since your last visit." : fresh + " stories are new since your last visit."; note.hidden = false; }
+}
+
+/* ---------- Where good things happened: a flat Equal Earth map ---------- */
+const LAND_DOTS = (LAND || "").split(";").filter(Boolean).map(p => p.split(",").map(Number));
+function equalEarth(lat, lon) {
+  const A1 = 1.340264, A2 = -0.081106, A3 = 0.000893, A4 = 0.003796, M = Math.sqrt(3) / 2;
+  const phi = lat * Math.PI / 180, lam = lon * Math.PI / 180;
+  const th = Math.asin(M * Math.sin(phi)), t2 = th * th, t6 = t2 * t2 * t2;
+  const x = lam * Math.cos(th) / (M * (A1 + 3 * A2 * t2 + t6 * (7 * A3 + 9 * A4 * t2)));
+  const y = th * (A1 + A2 * t2 + t6 * (A3 + A4 * t2));
+  return [x * 100, -y * 100];
+}
+let mapPins = null, activePin = null;
+function buildMap() {
+  const host = document.getElementById("map");
+  if (!host) return;
+  const svg = sv("svg", { viewBox: "-276 -136 552 272", role: "group", "aria-label": "World map of today's stories" });
+  // graticule ellipse outline
+  const edge = [];
+  for (let lat = -90; lat <= 90; lat += 3) edge.push(equalEarth(lat, 180));
+  for (let lat = 90; lat >= -90; lat -= 3) edge.push(equalEarth(lat, -180));
+  svg.append(sv("path", { class: "globe-edge", d: "M" + edge.map(p => p.map(v => v.toFixed(1)).join(" ")).join("L") + "Z" }));
+  let d = "";
+  for (const [lat, lon] of LAND_DOTS) { const [x, y] = equalEarth(lat, lon); d += `M${x.toFixed(1)} ${y.toFixed(1)}h0`; }
+  svg.append(sv("path", { class: "land", d }));
+  mapPins = sv("g", { class: "pins" });
+  svg.append(mapPins);
+  host.replaceChildren(svg);
+}
+function renderPins(list) {
+  if (!mapPins) return;
+  const placed = list.filter(s => s.place);
+  const taken = [];
+  mapPins.replaceChildren(...placed.map(s => {
+    let [x, y] = equalEarth(Math.max(-89, s.place.lat), s.place.lon);
+    // nudge pins that would sit on top of one another into a small ring
+    let k = 0;
+    while (taken.some(([a, b]) => Math.hypot(a - x, b - y) < 5) && k < 12) {
+      const ang = k * 2.4, rr = 5 + k * 1.2;
+      [x, y] = equalEarth(Math.max(-89, s.place.lat), s.place.lon).map((v, i) => v + (i ? Math.sin(ang) : Math.cos(ang)) * rr);
+      k++;
+    }
+    taken.push([x, y]);
+    const g = sv("g", { class: "pin c-" + s.category + (s.featured ? " featured" : ""), tabindex: "0", role: "button",
+      transform: `translate(${x.toFixed(1)} ${y.toFixed(1)})`, "aria-label": s.title + ", " + s.place.name });
+    g.append(sv("circle", { class: "hit", r: 13 }), sv("circle", { class: "halo", r: s.featured ? 9 : 6.5 }), sv("circle", { class: "dot", r: s.featured ? 3.6 : 2.6 }));
+    const pick = () => showPin(s, g);
+    g.addEventListener("click", pick);
+    g.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pick(); } });
+    if (canHover) g.addEventListener("mouseenter", pick);
+    return g;
+  }));
+  const beyond = list.length - placed.length;
+  document.getElementById("beyond").textContent = list.length
+    ? `${placed.length} of these stories happened somewhere you can point to. ${beyond ? beyond + (beyond === 1 ? " belongs" : " belong") + " to no single place: space, lab science and roundups." : ""}`
+    : "";
+  const first = placed.find(s => s.featured) || placed[0];
+  if (!first) { document.getElementById("pincard").replaceChildren(); return; }
+  if (!activePin || !placed.includes(activePin)) showPin(first, mapPins.querySelector(".pin"), true);
+  else showPin(activePin, [...mapPins.children][placed.indexOf(activePin)], true);
+}
+function showPin(s, g, quiet) {
+  activePin = s;
+  mapPins.querySelectorAll(".pin.on").forEach(p => p.classList.remove("on"));
+  if (g) g.classList.add("on");
+  const card = document.getElementById("pincard");
+  card.className = "pincard c-" + s.category;
+  card.replaceChildren(
+    el("p", { class: "where", text: s.place.name }),
+    el("h3", {}, el("a", { class: "t", href: safeLink(s.link), target: "_blank", rel: "noopener noreferrer", text: s.title })),
+    s.why ? el("p", { class: "why", text: s.why }) : null,
+    el("div", { class: "meta" }, el("b", { text: s.source }), document.createTextNode(" · " + ago(s.date))));
+  if (!quiet) card.setAttribute("aria-live", "polite");
+}
+const canHover = matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+/* ---------- Stories ---------- */
+function storyBits(s, headingTag) {
+  const a = el("a", { class: "t", href: safeLink(s.link), target: "_blank", rel: "noopener noreferrer", text: s.title });
+  const meta = el("div", { class: "meta" }, el("b", { text: s.source }), document.createTextNode(" · " + ago(s.date)));
+  const kick = el("span", { class: "kicker" }, glyph(s.category), el("span", { text: LABEL[s.category] || "Progress" }));
+  if (isNew(s)) kick.append(el("span", { class: "newchip", text: "New" }));
+  if (s.featured) kick.append(el("span", { class: "feat", text: dayIdx ? "Brightest that day" : "Today’s brightest" }));
+  if (STRENGTH[s.strength]) kick.append(el("span", { class: "tag s-" + s.strength, title: STRENGTH_TIP[s.strength], text: STRENGTH[s.strength] }));
+  const help = s.help ? el("p", { class: "help" }, el("span", { class: "label", text: "How you can help" }), document.createTextNode(s.help)) : null;
+  return [kick, el(headingTag, {}, a), s.why ? el("p", { class: "why", text: s.why }) : null, s.summary ? el("p", { class: "sum", text: s.summary }) : null, help, meta];
+}
+
+let circles = null;
+function render() {
+  if (!circles) circles = buildRosette();
+  for (const [id, c] of Object.entries(circles)) c.classList.toggle("on", id === current);
+  document.querySelectorAll(".petal-btn").forEach(b => b.setAttribute("aria-pressed", String(b.id === "petal-" + current)));
+
+  const list = VIEW.stories.filter(s => (current === "all" || s.category === current) && matches(s));
+  renderPins(list);
+  const lead = document.getElementById("lead");
+  const grid = document.getElementById("grid");
+  if (!list.length) {
+    lead.replaceChildren();
+    grid.replaceChildren(el("p", { class: "empty", text: query ? "No stories match “" + query + "”. Try another word, or choose the centre to see every topic." : "No stories in this topic today. Choose the centre to see everything." }));
+    return;
+  }
+  const first = list.find(s => s.featured) || list[0];
+  const rest = list.filter(s => s !== first);
+  const canvas = el("canvas", { "aria-hidden": "true" });
+  lead.replaceChildren(el("article", { class: "lead story c-" + first.category },
+    el("div", { class: "art" }, canvas), el("div", {}, ...storyBits(first, "h2"))));
+  requestAnimationFrame(() => drawLeadArt(canvas, first));
+  grid.replaceChildren(...rest.map(s => el("article", { class: "card story c-" + s.category }, ...storyBits(s, "h3"))));
+}
+
+/* ---------- Earlier days and the best of the week ---------- */
+let greetPart = "Hello";
+function dayLabel(day, opts) {
+  const d = new Date(day + "T12:00:00");
+  return isNaN(d) ? String(day) : d.toLocaleDateString(undefined, opts || { weekday: "long", day: "numeric", month: "long" });
+}
+function renderDay() {
+  const past = dayIdx > 0;
+  document.getElementById("daynav").hidden = DAYS.length < 2;
+  document.getElementById("prevday").disabled = dayIdx >= DAYS.length - 1;
+  document.getElementById("nextday").disabled = dayIdx === 0;
+  document.getElementById("dayname").textContent = past ? dayLabel(VIEW.day) : "Today";
+  const n = VIEW.stories.length + " good things";
+  document.getElementById("greet").replaceChildren(...(past
+    ? [document.createTextNode("On " + dayLabel(VIEW.day) + " there were "), el("strong", { text: n }), document.createTextNode(".")]
+    : [document.createTextNode(greetPart + ". Here are "), el("strong", { text: n }), document.createTextNode(" happening in the world.")]));
+  const note = document.getElementById("pastnote");
+  note.hidden = !past;
+  note.textContent = past ? "You are reading an earlier day. Choose “Later day” to come back to today." : "";
+  const brief = document.getElementById("brief");
+  brief.querySelector(".label").textContent = past ? "That day in brief" : "Today in brief";
+  brief.querySelector("span.text").textContent = VIEW.digest || "";
+  brief.hidden = !VIEW.digest;
+  document.getElementById("q").placeholder = past ? "Search this day’s good news" : "Search today’s good news";
+}
+function setDay(i) {
+  if (i < 0 || i >= DAYS.length || i === dayIdx) return;
+  dayIdx = i; VIEW = DAYS[i]; activePin = null; circles = null;
+  if (current !== "all" && !VIEW.stories.some(s => s.category === current)) current = "all";
+  renderDay(); render();
+}
+function initDays() {
+  document.getElementById("prevday").addEventListener("click", () => setDay(dayIdx + 1));
+  document.getElementById("nextday").addEventListener("click", () => setDay(dayIdx - 1));
+  renderDay();
+}
+function renderWeek() {
+  const w = DATA.week;
+  if (!w || w.days < 3 || !w.stories.length) return;
+  document.getElementById("week").hidden = false;
+  document.querySelector("[data-week]").hidden = false;
+  document.getElementById("week-cap").textContent = "The " + w.stories.length + " stories Claude rated highest across the last " + w.days + " days.";
+  document.getElementById("weeklist").replaceChildren(...w.stories.map(s => {
+    const i = DAYS.findIndex(d => d.day === s.day);
+    const go = el("button", { type: "button", class: "wday", text: s.day === DATA.day ? "Today" : dayLabel(s.day, { weekday: "long" }) });
+    if (i < 0) go.disabled = true;
+    else go.addEventListener("click", () => { setDay(i); document.getElementById("lead").scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" }); });
+    const top = el("div", { class: "top" }, go, el("span", { text: LABEL[s.category] || "Progress" }));
+    if (STRENGTH[s.strength]) top.append(el("span", { class: "tag s-" + s.strength, title: STRENGTH_TIP[s.strength], text: STRENGTH[s.strength] }));
+    return el("li", { class: "c-" + s.category }, top,
+      el("a", { href: safeLink(s.link), target: "_blank", rel: "noopener noreferrer", text: s.title }),
+      s.why ? el("p", { class: "why", text: s.why }) : null);
+  }));
+}
+
+function renderStatic() {
+  const now = new Date();
+  const h = now.getHours();
+  const part = h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening";
+  document.getElementById("dateline").textContent = now.toLocaleDateString(undefined, { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+  greetPart = part;
+  if (DATA.judged) {
+    document.getElementById("sieve-p1").textContent = "Every story comes from a real newsroom. Each morning their feeds are read, and stories about violence, disaster, politics or loss are set aside.";
+    document.getElementById("sieve-p2").textContent = "Then Claude reads each remaining story, keeps those where something got better, and writes a line explaining why. Anniversaries, adverts and filler don’t make it.";
+  }
+  document.getElementById("tally").replaceChildren(
+    ...(DATA.judged ? [[DATA.read, "stories read"], [DATA.considered, "read by Claude"], [DATA.stories.length, "on this page"]] : [[DATA.read, "stories read"], [DATA.setAside, "set aside"], [DATA.stories.length, "on this page"]]).map(([v, k]) =>
+      el("div", {}, el("span", { class: "v", text: String(v) }), el("span", { class: "k", text: k }))));
+  const max = Math.max(1, ...DATA.sources.map(s => s.read));
+  document.querySelector("#srcs tbody").replaceChildren(...DATA.sources.map(s => {
+    const meter = el("div", { class: "meter" }, el("i", { style: "width:" + Math.round(s.kept / max * 100) + "%" }));
+    return el("tr", {}, el("td", { text: s.name + (s.ok ? "" : " (unavailable)") }), el("td", { class: "num", text: String(s.read) }),
+      el("td", { class: "num", text: String(s.kept) }), el("td", { class: "bar-cell", "aria-hidden": "true" }, meter));
+  }));
+  document.getElementById("foot").textContent = "Gathered " + ago(DATA.builtAt) + ". Headlines link to the original publishers.";
+}
+
+initReading();
+flowerTile();
+drawChains();
+buildMap();
+renderStatic();
+initDays();
+renderWeek();
+render();
+if (reduceMotion || calmOn) drawMasthead(Infinity);
+else {
+  drawMasthead(0);
+  requestAnimationFrame(animateMasthead);
+  // Background tabs pause animation frames; make sure the finished figure is there when the reader arrives.
+  const finish = () => { if (startT === null) startT = -1e9; drawMasthead(Infinity); };
+  setTimeout(finish, (mast.end + 0.4) * 1000);
+  document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible" && (startT === null || (performance.now() - startT) / 1000 > mast.end)) finish(); });
+}
+
+function redrawAll() {
+  mast = null;
+  drawMasthead(startT === null || reduceMotion ? Infinity : Math.max((performance.now() - startT) / 1000, 99));
+  const c = document.querySelector(".lead canvas");
+  const pool = VIEW.stories.filter(x => (current === "all" || x.category === current) && matches(x));
+  const s = pool.find(x => x.featured) || pool[0];
+  if (c && s) drawLeadArt(c, s);
+}
+let rt; addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(redrawAll, 150); });
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", redrawAll);
+new MutationObserver(redrawAll).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+</script>
+
+</html>
