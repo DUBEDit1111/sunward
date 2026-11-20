@@ -6,7 +6,7 @@
     <atom:link href="https://dubedit1111.github.io/sunward/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Only good news. Each morning Sunward reads real newsrooms, keeps the stories where something got better, and says why in one line.</description>
     <language>en</language>
-    <lastBuildDate>Thu, 19 Nov 2026 15:09:12 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 20 Nov 2026 17:48:15 GMT</lastBuildDate>
     <ttl>720</ttl>
     <item>
       <title>This Blue Whale Population Grew 1,000% Since the End of Antarctic Whaling</title>
@@ -14,7 +14,63 @@
       <guid isPermaLink="false">sunward-2facbc7b1b</guid>
       <pubDate>Wed, 18 Nov 2026 14:00:45 GMT</pubDate>
       <category>wildlife</category>
-      <description>Antarctic blue whales have grown from 418 to about 4,000 since whaling stopped in 1973. Evidence: Proven at scale. Source: Good News Network.</description>
+      <description>Antarctic blue whales have grown from 418 to about 4,000 since whaling there stopped in 1973. Evidence: Proven at scale. Source: Good News Network.</description>
+    </item>
+    <item>
+      <title>Rhino Dung Paper Is How This Family Makes Money and Protects These Amazing Animals</title>
+      <link>https://www.goodnewsnetwork.org/father-daughter-business-sells-paper-and-stationery-made-from-rhino-dung/</link>
+      <guid isPermaLink="false">sunward-93b0a58f71</guid>
+      <pubDate>Fri, 20 Nov 2026 14:00:46 GMT</pubDate>
+      <category>wildlife</category>
+      <description>A family turns rhino dung into paper, so nearby villagers now earn from rhinos instead of clashing with them. Evidence: Trial or pilot. Source: Good News Network.</description>
+    </item>
+    <item>
+      <title>Every Tuesday, This Chef Cooks for 100 People in Need Using Random Food Bank Ingredients</title>
+      <link>https://www.goodnewsnetwork.org/every-tuesday-this-chef-cooks-for-100-people-in-need-using-random-food-bank-ingredients/</link>
+      <guid isPermaLink="false">sunward-0192d1b762</guid>
+      <pubDate>Fri, 20 Nov 2026 12:30:29 GMT</pubDate>
+      <category>people</category>
+      <description>A Toronto chef cooks a scratch meal for 100 people every Tuesday from whatever the food bank has. How you can help: Ask your local food bank whether it needs volunteer cooks or kitchen help. Source: Good News Network.</description>
+    </item>
+    <item>
+      <title>CERN scientists finally find evidence of a particle decay so rare it took 40 years to detect</title>
+      <link>https://www.sciencedaily.com/releases/2026/11/261119194530.htm</link>
+      <guid isPermaLink="false">sunward-b9c4b08fe3</guid>
+      <pubDate>Fri, 20 Nov 2026 12:23:23 GMT</pubDate>
+      <category>discovery</category>
+      <description>CERN physicists found the first evidence of a particle decay they had hunted for 40 years. Source: ScienceDaily.</description>
+    </item>
+    <item>
+      <title>Montreal Is Harnessing Soothing Ocean Sounds to Combat Traffic Noise</title>
+      <link>https://reasonstobecheerful.world/montreal-harnessing-ocean-sounds-countering-traffic-noise/</link>
+      <guid isPermaLink="false">sunward-05a850496b</guid>
+      <pubDate>Fri, 20 Nov 2026 08:00:05 GMT</pubDate>
+      <category>progress</category>
+      <description>A Montreal pocket park plays ocean sounds to soften traffic noise, and visitors find it calmer. Evidence: Trial or pilot. Source: Reasons to be Cheerful.</description>
+    </item>
+    <item>
+      <title>Wildlife conservation cash targets ex-colliery sites</title>
+      <link>https://www.bbc.co.uk/news/articles/cmx2785nzpw2o?at_medium=RSS&amp;at_campaign=rss</link>
+      <guid isPermaLink="false">sunward-1bbcd09574</guid>
+      <pubDate>Fri, 20 Nov 2026 06:21:50 GMT</pubDate>
+      <category>wildlife</category>
+      <description>Former coal mine sites in Yorkshire are being restored as homes for amphibians and lizards. Evidence: Trial or pilot. How you can help: Leave a wild corner in your garden with logs or stones for frogs and lizards. Source: BBC Science &amp; Environment.</description>
+    </item>
+    <item>
+      <title>CAR-T therapy helps stiff person syndrome patients walk and work again</title>
+      <link>https://www.optimistdaily.com/2026/11/car-t-therapy-helps-stiff-person-syndrome-patients-walk-and-work-again/</link>
+      <guid isPermaLink="false">sunward-10f2703cf5</guid>
+      <pubDate>Fri, 20 Nov 2026 00:00:07 GMT</pubDate>
+      <category>health</category>
+      <description>In an early Mayo Clinic trial, CAR-T therapy helped people with stiff person syndrome walk and work again. Evidence: Trial or pilot. Source: The Optimist Daily.</description>
+    </item>
+    <item>
+      <title>She Checked on Her ‘Loud’ Upstairs Neighbor, Inspiring Strangers to Raise More Than $100,000</title>
+      <link>https://www.goodnewsnetwork.org/loud-neighbor-parkinsons-gofundme/</link>
+      <guid isPermaLink="false">sunward-ec4421019e</guid>
+      <pubDate>Thu, 19 Nov 2026 16:26:23 GMT</pubDate>
+      <category>people</category>
+      <description>One neighbour checked on an 87-year-old with Parkinson’s, and strangers raised over $109,000 to support her. How you can help: Knock on an older neighbour’s door this week and ask how they are doing. Source: Good News Network.</description>
     </item>
     <item>
       <title>Empire State Building Lit Up with Gold Marks Historic Milestone of NASA’s Voyager 1 This Week</title>
@@ -22,7 +78,7 @@
       <guid isPermaLink="false">sunward-16a37e6086</guid>
       <pubDate>Thu, 19 Nov 2026 14:00:49 GMT</pubDate>
       <category>discovery</category>
-      <description>Voyager 1 is now one light-day from Earth and still sending signals home, 49 years after launch. Source: Good News Network.</description>
+      <description>Voyager 1, launched in 1977, is still sending signals home from a full light-day away. Source: Good News Network.</description>
     </item>
     <item>
       <title>Over 100 Cave Bear Skeletons Found in ‘Sensational’ Discovery by Alpine Guide</title>
@@ -30,39 +86,23 @@
       <guid isPermaLink="false">sunward-9573fcfad8</guid>
       <pubDate>Thu, 19 Nov 2026 12:30:10 GMT</pubDate>
       <category>discovery</category>
-      <description>An Alpine guide found a cave holding over 100 cave bear skeletons, kept secret so looters stay away. Source: Good News Network.</description>
-    </item>
-    <item>
-      <title>Race to replant five South African baobabs after export blocked</title>
-      <link>https://www.theguardian.com/environment/2026/nov/19/baobab-five-trees-south-africa-dug-up-export-blocked-georgia-aoe</link>
-      <guid isPermaLink="false">sunward-f134fe4f94</guid>
-      <pubDate>Thu, 19 Nov 2026 11:03:24 GMT</pubDate>
-      <category>planet</category>
-      <description>Five centuries-old baobabs stopped from illegal export are being replanted in South Africa. Source: The Guardian Environment.</description>
-    </item>
-    <item>
-      <title>Something strange is living beneath the skin of deep-sea pigs</title>
-      <link>https://www.sciencedaily.com/releases/2026/11/261118065512.htm</link>
-      <guid isPermaLink="false">sunward-93aa0cf86e</guid>
-      <pubDate>Thu, 19 Nov 2026 10:33:03 GMT</pubDate>
-      <category>discovery</category>
-      <description>Scientists found a new bacterium living in partnership beneath the skin of deep-sea sea pigs. Source: ScienceDaily.</description>
+      <description>An Alpine guide found a cave holding the bones of more than 100 extinct cave bears, kept safe for study. Source: Good News Network.</description>
     </item>
     <item>
       <title>The Waterless, Hyper-Efficient Machines That Clean Clothes With Carbon Dioxide</title>
       <link>https://reasonstobecheerful.world/carbon-dioxide-laundry-machine/</link>
       <guid isPermaLink="false">sunward-4b6758f48f</guid>
       <pubDate>Thu, 19 Nov 2026 08:00:13 GMT</pubDate>
-      <category>progress</category>
-      <description>New washing machines clean clothes with recycled carbon dioxide instead of water and heat. Evidence: Trial or pilot. Source: Reasons to be Cheerful.</description>
+      <category>planet</category>
+      <description>New machines clean clothes with recycled carbon dioxide instead of water and heat. Evidence: Trial or pilot. Source: Reasons to be Cheerful.</description>
     </item>
     <item>
-      <title>Students Fighting to Save Poached Plant Species That Only Exists in Near Their Campus</title>
+      <title>Students Fighting to Save Poached Plant Species That Only Exists Near Their Campus</title>
       <link>https://www.goodnewsnetwork.org/students-fighting-to-save-poached-plant-species-that-only-exists-near-their-campus/</link>
       <guid isPermaLink="false">sunward-d3f0c8986c</guid>
       <pubDate>Wed, 18 Nov 2026 19:30:50 GMT</pubDate>
       <category>planet</category>
-      <description>Students and scientists are working to save a wildflower that grows only in their valley after poachers took plants. How you can help: Buy succulents from nurseries that grow their own stock, never plants dug from the wild. Source: Good News Network.</description>
+      <description>Students at Santa Clara University are working to save a poached wildflower that grows only in their valley. Evidence: Trial or pilot. How you can help: Buy succulents only from nurseries that grow their own, never plants dug from the wild. Source: Good News Network.</description>
     </item>
     <item>
       <title>Siblings Build 430-Step ‘Sky Ladder’ for Their Mother Who Refuses to Live in the City</title>
@@ -70,7 +110,7 @@
       <guid isPermaLink="false">sunward-56c67dd01e</guid>
       <pubDate>Wed, 18 Nov 2026 16:30:42 GMT</pubDate>
       <category>people</category>
-      <description>Siblings built 430 steps up a mountain by hand so their mother can keep living in her home. Source: Good News Network.</description>
+      <description>Siblings built a 430-step staircase up a mountain by hand so their mother can keep living in her home. Source: Good News Network.</description>
     </item>
     <item>
       <title>‘Huge experiment in biogeography’: US offshore windfarms are creating artificial reefs</title>
@@ -78,7 +118,7 @@
       <guid isPermaLink="false">sunward-31f8cef58e</guid>
       <pubDate>Wed, 18 Nov 2026 14:00:04 GMT</pubDate>
       <category>wildlife</category>
-      <description>Offshore windfarm foundations are turning into reefs full of sea life, and scientists are studying them. Evidence: Early research. Source: The Guardian Environment.</description>
+      <description>US offshore windfarm foundations are turning into artificial reefs that fish and other sea life now use. Evidence: Early research. Source: The Guardian Environment.</description>
     </item>
     <item>
       <title>Scientists ‘Cure’ Deadly Brain Tumors in Every Mouse Tested with New Cancer Therapy</title>
@@ -86,7 +126,7 @@
       <guid isPermaLink="false">sunward-7239b5ad28</guid>
       <pubDate>Wed, 18 Nov 2026 12:30:20 GMT</pubDate>
       <category>health</category>
-      <description>A new immune cell therapy cleared an aggressive childhood brain cancer in every mouse tested. Evidence: Early research. Source: Good News Network.</description>
+      <description>A new immune-cell therapy cleared an aggressive childhood brain cancer in every mouse tested at UCSF. Evidence: Early research. Source: Good News Network.</description>
     </item>
     <item>
       <title>New discovery reveals what may be holding back room-temperature superconductors</title>
@@ -94,7 +134,7 @@
       <guid isPermaLink="false">sunward-d6d7c98100</guid>
       <pubDate>Wed, 18 Nov 2026 12:16:46 GMT</pubDate>
       <category>discovery</category>
-      <description>A key ingredient of superconductivity was found to survive at room temperature, a clue for lossless power. Evidence: Early research. Source: ScienceDaily.</description>
+      <description>Physicists showed one key ingredient of superconductivity can exist at room temperature. Evidence: Early research. Source: ScienceDaily.</description>
     </item>
     <item>
       <title>125,000 years ago, hippos roamed what is now the vast Arabian Desert</title>
@@ -102,23 +142,23 @@
       <guid isPermaLink="false">sunward-1978c7b347</guid>
       <pubDate>Wed, 18 Nov 2026 01:52:47 GMT</pubDate>
       <category>discovery</category>
-      <description>Stone tools and plant remains show the Arabian Desert once held lakes, hippos and thriving early humans. Source: ScienceDaily.</description>
+      <description>Tools and fossils show early humans lived by lakes full of hippos in today’s Arabian desert. Source: ScienceDaily.</description>
     </item>
     <item>
       <title>US homelessness decline hits its steepest one-year drop in a decade</title>
       <link>https://www.optimistdaily.com/2026/11/us-homelessness-decline-hits-its-steepest-one-year-drop-in-a-decade/</link>
       <guid isPermaLink="false">sunward-b49f5f70db</guid>
       <pubDate>Wed, 18 Nov 2026 00:00:36 GMT</pubDate>
-      <category>progress</category>
-      <description>US homelessness fell over 6% in 2025, about 49,000 fewer people, the steepest drop in a decade. Evidence: Proven at scale. How you can help: Ask your local shelter what it needs this winter; coats and socks often run short. Source: The Optimist Daily.</description>
+      <category>people</category>
+      <description>US homelessness fell more than 6% in 2025, about 49,000 fewer people, the steepest drop in a decade. Evidence: Proven at scale. How you can help: Ask a local shelter what it needs this winter; warm socks and toiletries are common asks. Source: The Optimist Daily.</description>
     </item>
     <item>
       <title>April Surac built NeuraSensa so art adapts to the people using it</title>
       <link>https://www.optimistdaily.com/2026/11/how-april-surac-turned-textile-art-into-therapeutic-tools-for-neurodivergent-communities/</link>
       <guid isPermaLink="false">sunward-8a95c430f8</guid>
       <pubDate>Wed, 18 Nov 2026 00:00:03 GMT</pubDate>
-      <category>progress</category>
-      <description>A young designer built NeuraSensa, art installations that adapt to each visitor’s senses. Evidence: Trial or pilot. Source: The Optimist Daily.</description>
+      <category>people</category>
+      <description>A young designer built NeuraSensa, art installations that adapt to the senses of each visitor. Evidence: Trial or pilot. Source: The Optimist Daily.</description>
     </item>
     <item>
       <title>Pakistan's solar revolution is so successful the national grid is lagging behind</title>
@@ -126,7 +166,7 @@
       <guid isPermaLink="false">sunward-f750f2f329</guid>
       <pubDate>Tue, 17 Nov 2026 23:34:56 GMT</pubDate>
       <category>planet</category>
-      <description>Rooftop solar has lifted Pakistan's solar share of electricity from 1% to 28%. Evidence: Proven at scale. Source: BBC Science &amp; Environment.</description>
+      <description>Rooftop panels pushed solar from 1% to 28% of Pakistan’s electricity. Evidence: Proven at scale. Source: BBC Science &amp; Environment.</description>
     </item>
     <item>
       <title>West Coast’s First Ever Sea Turtle Hatchlings Released into the Pacific (LOOK)</title>
@@ -134,15 +174,7 @@
       <guid isPermaLink="false">sunward-f5cd5e466e</guid>
       <pubDate>Tue, 17 Nov 2026 19:30:43 GMT</pubDate>
       <category>wildlife</category>
-      <description>Olive ridley hatchlings from the first sea turtle nest recorded on the US West Coast reached the Pacific. How you can help: Give nesting turtles space on beaches and report any nest to local wildlife officials. Source: Good News Network.</description>
-    </item>
-    <item>
-      <title>William and Kate celebrate Earthshot Prize winners in Mumbai</title>
-      <link>https://www.bbc.co.uk/news/articles/cqlykve012d1o?at_medium=RSS&amp;at_campaign=rss</link>
-      <guid isPermaLink="false">sunward-3cd2478394</guid>
-      <pubDate>Tue, 17 Nov 2026 18:20:36 GMT</pubDate>
-      <category>planet</category>
-      <description>This year’s Earthshot Prize honoured environmental innovators at a ceremony in Mumbai. Source: BBC Science &amp; Environment.</description>
+      <description>The first olive ridley turtle hatchlings recorded on the US West Coast were saved from a storm and reached the sea. How you can help: Give marked turtle nests on beaches a wide berth and report new ones to local wildlife officers. Source: Good News Network.</description>
     </item>
     <item>
       <title>Algeria Returns Kindness Shown by Kansans Who Welcomed its World Cup Team with the Trip of a Lifetime</title>
@@ -150,7 +182,7 @@
       <guid isPermaLink="false">sunward-dc8e250e1f</guid>
       <pubDate>Tue, 17 Nov 2026 16:30:41 GMT</pubDate>
       <category>people</category>
-      <description>Algeria flew out Kansas families who had hosted its World Cup team and gave them the welcome back. Source: Good News Network.</description>
+      <description>Algeria hosted the Kansas families who welcomed its World Cup team, returning their kindness with a trip. Source: Good News Network.</description>
     </item>
     <item>
       <title>Warren Buffett Gives Away $5.5 Billion in Thanksgiving Gift, Saying Kindness Is Priceless</title>
@@ -158,7 +190,7 @@
       <guid isPermaLink="false">sunward-f55d91a7bb</guid>
       <pubDate>Tue, 17 Nov 2026 15:55:24 GMT</pubDate>
       <category>people</category>
-      <description>Warren Buffett gave about $5.5 billion in shares to charity in his yearly Thanksgiving gift. Source: Good News Network.</description>
+      <description>Warren Buffett gave about $5.5 billion in shares to charity for Thanksgiving. Source: Good News Network.</description>
     </item>
     <item>
       <title>Largest Electric Bus Fleet in New York to Serve Bronx Neighborhood Elevated Asthma Rates</title>
@@ -166,7 +198,7 @@
       <guid isPermaLink="false">sunward-8fe1f7bc0d</guid>
       <pubDate>Tue, 17 Nov 2026 14:00:28 GMT</pubDate>
       <category>planet</category>
-      <description>New York's largest electric school bus fleet now runs in a South Bronx area with high child asthma rates. Evidence: Proven at scale. Source: Good News Network.</description>
+      <description>New York’s largest electric school bus fleet now runs in a South Bronx area with high childhood asthma. Evidence: Proven at scale. Source: Good News Network.</description>
     </item>
     <item>
       <title>Can this experimental orchard save the UK’s cider industry?</title>
@@ -174,7 +206,7 @@
       <guid isPermaLink="false">sunward-4cd462fe90</guid>
       <pubDate>Tue, 17 Nov 2026 08:00:08 GMT</pubDate>
       <category>planet</category>
-      <description>A Somerset orchard is testing apple varieties and methods to keep cider trees healthy as climate shifts. Evidence: Trial or pilot. Source: The Guardian Environment.</description>
+      <description>A Somerset farm is testing apple varieties and methods to keep cider orchards thriving as the climate shifts. Evidence: Trial or pilot. Source: The Guardian Environment.</description>
     </item>
     <item>
       <title>The Greek coastline cleanup that turned trash into a pollution map</title>
@@ -182,15 +214,15 @@
       <guid isPermaLink="false">sunward-1a53150204</guid>
       <pubDate>Tue, 17 Nov 2026 00:00:25 GMT</pubDate>
       <category>planet</category>
-      <description>A cleanup on a small Greek islet logged every item found, building a map of where marine litter comes from. How you can help: Join a beach cleanup and log what you find; the records help track pollution. Source: The Optimist Daily.</description>
+      <description>A Greek islet cleanup logged every item it found, turning beach rubbish into a map of pollution sources. How you can help: Join a beach or river clean and record what you find. Source: The Optimist Daily.</description>
     </item>
     <item>
       <title>Animal welfare ballot measures had a strong night in the 2026 midterms</title>
       <link>https://www.optimistdaily.com/2026/11/animal-welfare-ballot-measures-had-a-strong-night-in-the-2026-midterms/</link>
       <guid isPermaLink="false">sunward-cf2c52bc6b</guid>
       <pubDate>Tue, 17 Nov 2026 00:00:24 GMT</pubDate>
-      <category>progress</category>
-      <description>US voters passed several animal welfare measures on 3 November by wide margins. Evidence: Now policy. Source: The Optimist Daily.</description>
+      <category>wildlife</category>
+      <description>Voters in the 2026 US midterms passed several animal welfare measures by wide margins. Evidence: Now policy. Source: The Optimist Daily.</description>
     </item>
     <item>
       <title>Farmer Finds Unknown Seeds in His Attic – and Grows an Ancient ‘Miracle’ Grain</title>
@@ -198,7 +230,7 @@
       <guid isPermaLink="false">sunward-f5df2f7959</guid>
       <pubDate>Mon, 16 Nov 2026 19:30:28 GMT</pubDate>
       <category>planet</category>
-      <description>A Parma farmer grew an old wheat variety from seeds he found in his attic, reviving a lost grain. Evidence: Trial or pilot. Source: Good News Network.</description>
+      <description>An Italian farmer grew an ancient grain from seeds found in his attic, reviving a hardy old crop. Evidence: Trial or pilot. Source: Good News Network.</description>
     </item>
     <item>
       <title>30% Drop in Levels of Forever Chemicals in England’s Rivers, 49% in Fish – ‘Brilliant to See’</title>
@@ -206,31 +238,15 @@
       <guid isPermaLink="false">sunward-5a72fd6120</guid>
       <pubDate>Mon, 16 Nov 2026 16:30:13 GMT</pubDate>
       <category>planet</category>
-      <description>Two banned forever chemicals have fallen about 30% in England's rivers and nearly half in fish. Evidence: Now policy. Source: Good News Network.</description>
+      <description>After bans, two forever chemicals fell about 30% in England’s rivers and nearly half in fish. Evidence: Now policy. Source: Good News Network.</description>
     </item>
     <item>
       <title>NASA is offering $1 million for bold ideas to help build a Moon base</title>
       <link>https://www.sciencedaily.com/releases/2026/11/261115085542.htm</link>
       <guid isPermaLink="false">sunward-2b0a435a8a</guid>
       <pubDate>Mon, 16 Nov 2026 14:02:10 GMT</pubDate>
-      <category>progress</category>
-      <description>NASA is offering $1 million for student ideas on building the first permanent Moon base. Source: ScienceDaily.</description>
-    </item>
-    <item>
-      <title>Tokyo Tackles Trash Troubles with New Generation of Robotic Street Waste Bins</title>
-      <link>https://www.goodnewsnetwork.org/tokyo-tackles-trash-troubles-with-new-generation-of-robotic-street-waste-bins/</link>
-      <guid isPermaLink="false">sunward-317087c4d9</guid>
-      <pubDate>Mon, 16 Nov 2026 14:00:03 GMT</pubDate>
-      <category>progress</category>
-      <description>Tokyo is trying solar compacting bins and robot haulers to keep tourist streets clean. Evidence: Trial or pilot. Source: Good News Network.</description>
-    </item>
-    <item>
-      <title>Climbers Lug Endangered and Orphaned Seal Pup Up a Cliff to Safety</title>
-      <link>https://www.goodnewsnetwork.org/climbers-lug-endangered-and-orphaned-seal-pup-up-a-cliff-to-safety/</link>
-      <guid isPermaLink="false">sunward-52d0793abd</guid>
-      <pubDate>Mon, 16 Nov 2026 12:30:00 GMT</pubDate>
-      <category>wildlife</category>
-      <description>Climbers in Greece carried an orphaned, critically endangered monk seal pup up a cliff to rescuers. How you can help: If you find a seal pup alone on a beach, keep your distance and call a wildlife rescue line. Source: Good News Network.</description>
+      <category>discovery</category>
+      <description>NASA is inviting students to design parts of a permanent Moon base, with $1 million in prizes. Source: ScienceDaily.</description>
     </item>
     <item>
       <title>Hidden ecosystem: Scientists discover 245 animals living inside a single deep-sea rock</title>
@@ -238,7 +254,7 @@
       <guid isPermaLink="false">sunward-01f2281746</guid>
       <pubDate>Mon, 16 Nov 2026 11:40:14 GMT</pubDate>
       <category>wildlife</category>
-      <description>Scientists counted over 4,100 tiny animals living inside 244 deep-sea rock nodules in the Pacific. Source: ScienceDaily.</description>
+      <description>Deep-sea metal nodules turned out to host over 4,100 small animals, one rock holding 245. Source: ScienceDaily.</description>
     </item>
     <item>
       <title>Can Barbershops Turn Trust Into Better Health for Black Men?</title>
@@ -246,15 +262,7 @@
       <guid isPermaLink="false">sunward-1a30732114</guid>
       <pubDate>Mon, 16 Nov 2026 08:00:15 GMT</pubDate>
       <category>health</category>
-      <description>Barbershops on Staten Island are offering health checks to Black men in a setting they already trust. Evidence: Trial or pilot. How you can help: Get your blood pressure checked; many pharmacies do it free. Source: Reasons to be Cheerful.</description>
-    </item>
-    <item>
-      <title>An ancient virus may help explain what makes the human brain different</title>
-      <link>https://www.sciencedaily.com/releases/2026/11/261114202230.htm</link>
-      <guid isPermaLink="false">sunward-96fc817857</guid>
-      <pubDate>Mon, 16 Nov 2026 00:32:12 GMT</pubDate>
-      <category>discovery</category>
-      <description>Researchers found an ancient virus may have helped shape how the human brain develops. Source: ScienceDaily.</description>
+      <description>Staten Island barbershops are offering health checks, reaching Black men who often avoid clinics. Evidence: Trial or pilot. How you can help: Get your blood pressure checked; many pharmacies do it for free. Source: Reasons to be Cheerful.</description>
     </item>
     <item>
       <title>This Tourette’s wrist device cut tics by a quarter in a UK trial</title>
@@ -262,15 +270,7 @@
       <guid isPermaLink="false">sunward-c642f7b615</guid>
       <pubDate>Mon, 16 Nov 2026 00:00:57 GMT</pubDate>
       <category>health</category>
-      <description>A wrist device cut tics by a quarter on average in a UK trial for Tourette's. Evidence: Trial or pilot. Source: The Optimist Daily.</description>
-    </item>
-    <item>
-      <title>They Became Pen Pals as Teens, Now 32 Years Later They’re Happily Married</title>
-      <link>https://www.goodnewsnetwork.org/they-became-pen-pals-as-teens-now-32-years-later-theyre-happily-married/</link>
-      <guid isPermaLink="false">sunward-b5520bdff4</guid>
-      <pubDate>Sun, 15 Nov 2026 22:29:05 GMT</pubDate>
-      <category>people</category>
-      <description>Two teens who became pen pals on a Greek holiday in 1994 are now married. Source: Good News Network.</description>
+      <description>A wrist device cut tics by a quarter on average in a UK trial of 121 people with Tourette’s. Evidence: Trial or pilot. Source: The Optimist Daily.</description>
     </item>
     <item>
       <title>Vitamin C could help block cancer-linked chemicals in your stomach, study finds</title>
@@ -278,7 +278,7 @@
       <guid isPermaLink="false">sunward-3b08b117bc</guid>
       <pubDate>Sun, 15 Nov 2026 14:13:18 GMT</pubDate>
       <category>health</category>
-      <description>A model suggests vitamin C taken with meals may stop some cancer-linked chemicals forming in the stomach. Evidence: Early research. Source: ScienceDaily.</description>
+      <description>A model suggests vitamin C with nitrate-rich meals may stop cancer-linked compounds forming in the stomach. Evidence: Early research. Source: ScienceDaily.</description>
     </item>
     <item>
       <title>A simple supplement could help your immune system fight cancer and viral infections</title>
@@ -286,15 +286,7 @@
       <guid isPermaLink="false">sunward-5de1690213</guid>
       <pubDate>Sun, 15 Nov 2026 12:36:52 GMT</pubDate>
       <category>health</category>
-      <description>Researchers found the amino acid arginine helps immune cells fight cancer and viruses in early tests. Evidence: Early research. Source: ScienceDaily.</description>
-    </item>
-    <item>
-      <title>Dinosaurs may have been eating seaweed 100 million years ago</title>
-      <link>https://www.sciencedaily.com/releases/2026/11/261112230502.htm</link>
-      <guid isPermaLink="false">sunward-eb7e17bdcc</guid>
-      <pubDate>Sun, 15 Nov 2026 03:00:54 GMT</pubDate>
-      <category>discovery</category>
-      <description>Fossil teeth suggest some dinosaurs ate seaweed and other ocean food 100 million years ago. Source: ScienceDaily.</description>
+      <description>Rockefeller scientists found low arginine weakens immune defences, hinting a supplement could help. Evidence: Early research. Source: ScienceDaily.</description>
     </item>
     <item>
       <title>Euclid discovers ancient cosmic beacons from the dawn of time, shining like a trillion suns</title>
@@ -302,7 +294,7 @@
       <guid isPermaLink="false">sunward-b53dbb591b</guid>
       <pubDate>Sun, 15 Nov 2026 01:52:47 GMT</pubDate>
       <category>discovery</category>
-      <description>The Euclid telescope found 31 ancient quasars, including two record holders from the early universe. Source: ScienceDaily.</description>
+      <description>The Euclid telescope found 31 ancient quasars, two from when the Universe was 670 million years old. Source: ScienceDaily.</description>
     </item>
     <item>
       <title>SpaceX successfully catches top of huge Starship rocket for first time</title>
@@ -310,7 +302,7 @@
       <guid isPermaLink="false">sunward-713a48e07b</guid>
       <pubDate>Sat, 14 Nov 2026 22:15:52 GMT</pubDate>
       <category>progress</category>
-      <description>SpaceX caught the upper stage of its Starship rocket in mid-air for the first time, a step toward reuse. Evidence: Trial or pilot. Source: BBC Science &amp; Environment.</description>
+      <description>SpaceX caught the upper stage of Starship in mid-air, a step toward fully reusable rockets. Source: BBC Science &amp; Environment.</description>
     </item>
     <item>
       <title>A giant icy world hiding beyond Pluto could be our sixth dwarf planet</title>
@@ -318,31 +310,23 @@
       <guid isPermaLink="false">sunward-d837e9eb26</guid>
       <pubDate>Sat, 14 Nov 2026 11:58:42 GMT</pubDate>
       <category>discovery</category>
-      <description>Astronomers found a large icy world beyond Pluto that could become the sixth known dwarf planet. Source: ScienceDaily.</description>
+      <description>Astronomers spotted 2026 ED138, a large icy world beyond Pluto that may become the sixth dwarf planet. Source: ScienceDaily.</description>
     </item>
     <item>
       <title>Maui Is Becoming a Living Laboratory for Regenerative Tourism</title>
       <link>https://reasonstobecheerful.world/maui-living-laboratory-regenerative-tourism/</link>
       <guid isPermaLink="false">sunward-ef70736aa7</guid>
       <pubDate>Fri, 13 Nov 2026 08:00:12 GMT</pubDate>
-      <category>planet</category>
-      <description>Visitors to Maui are helping restore land and reefs as the island rebuilds after the 2023 fires. Evidence: Trial or pilot. How you can help: When you travel, spend a day on local volunteering such as tree planting or a beach cleanup. Source: Reasons to be Cheerful.</description>
-    </item>
-    <item>
-      <title>How two Princeton graduates built the world’s first microplastics removal system</title>
-      <link>https://www.optimistdaily.com/2026/11/how-two-princeton-graduates-built-the-worlds-first-microplastics-removal-system/</link>
-      <guid isPermaLink="false">sunward-0656964182</guid>
-      <pubDate>Fri, 13 Nov 2026 00:00:54 GMT</pubDate>
-      <category>planet</category>
-      <description>Two graduates built a system that filters microplastics from wastewater before it reaches rivers. Evidence: Trial or pilot. Source: The Optimist Daily.</description>
+      <category>progress</category>
+      <description>After the 2023 fires, Maui is shaping tourism that asks visitors to help restore land and community. Evidence: Trial or pilot. How you can help: When you travel, choose local stays and tours that keep money in the community. Source: Reasons to be Cheerful.</description>
     </item>
     <item>
       <title>Crows can make decisions twice as fast as humans, scientists discover</title>
       <link>https://www.sciencedaily.com/releases/2026/11/261111005850.htm</link>
       <guid isPermaLink="false">sunward-f9f6b92afb</guid>
       <pubDate>Thu, 12 Nov 2026 12:17:19 GMT</pubDate>
-      <category>wildlife</category>
-      <description>Crows make visual decisions in 235 milliseconds, about twice as fast as humans. Source: ScienceDaily.</description>
+      <category>discovery</category>
+      <description>Tübingen researchers found crows make visual decisions about twice as fast as humans. Source: ScienceDaily.</description>
     </item>
     <item>
       <title>AI-powered bionic eye breakthrough could help the blind see again</title>
@@ -350,7 +334,7 @@
       <guid isPermaLink="false">sunward-3a92920b65</guid>
       <pubDate>Thu, 12 Nov 2026 11:55:55 GMT</pubDate>
       <category>health</category>
-      <description>AI is helping a blind man with a brain implant see more precise shapes of light. Evidence: Trial or pilot. Source: ScienceDaily.</description>
+      <description>AI helped predict what a blind man with a brain implant sees, making bionic vision more precise. Evidence: Early research. Source: ScienceDaily.</description>
     </item>
     <item>
       <title>A butterfly that fooled scientists for 200 years finally reveals its secrets</title>
@@ -358,7 +342,7 @@
       <guid isPermaLink="false">sunward-6f227a9319</guid>
       <pubDate>Thu, 12 Nov 2026 10:47:43 GMT</pubDate>
       <category>wildlife</category>
-      <description>A familiar tropical butterfly turned out to be three species, one of them new to science. Source: ScienceDaily.</description>
+      <description>A common tropical butterfly turned out to be three species, one new to science. Source: ScienceDaily.</description>
     </item>
     <item>
       <title>Imagining the Mossy Cities of the Future</title>
@@ -366,7 +350,7 @@
       <guid isPermaLink="false">sunward-64250d6a0a</guid>
       <pubDate>Thu, 12 Nov 2026 08:00:43 GMT</pubDate>
       <category>planet</category>
-      <description>A moss wall built in Aachen to save a tree is inspiring plans for cooler, cleaner city streets. Evidence: Trial or pilot. Source: Reasons to be Cheerful.</description>
+      <description>A German effort that began by saving one tree is now testing moss to cool and clean city air. Evidence: Early research. Source: Reasons to be Cheerful.</description>
     </item>
     <item>
       <title>Colleges Are Getting Creative to Help Students With Kids</title>
@@ -374,7 +358,7 @@
       <guid isPermaLink="false">sunward-13922fc03c</guid>
       <pubDate>Mon, 09 Nov 2026 16:39:10 GMT</pubDate>
       <category>people</category>
-      <description>Colleges are adding childcare, play spaces and flexible help so student parents can finish degrees. Evidence: Trial or pilot. Source: Reasons to be Cheerful.</description>
+      <description>Colleges are adding childcare, family spaces and flexible help so student parents can finish degrees. Evidence: Trial or pilot. Source: Reasons to be Cheerful.</description>
     </item>
     <item>
       <title>In Alaska’s capital, food comes by water, air or, most often, community sharing</title>
@@ -382,15 +366,7 @@
       <guid isPermaLink="false">sunward-e9f0a0ce24</guid>
       <pubDate>Fri, 06 Nov 2026 15:00:46 GMT</pubDate>
       <category>people</category>
-      <description>In Juneau, where little can be farmed, neighbours keep each other fed by sharing fish, game and harvests. How you can help: Share surplus from your garden or kitchen with a neighbour. Source: The Guardian Environment.</description>
-    </item>
-    <item>
-      <title>The Montana Ranch Where Autistic People Are Wranglers and Guides</title>
-      <link>https://reasonstobecheerful.world/montana-guest-ranch-employing-autistic-people/</link>
-      <guid isPermaLink="false">sunward-4c3c67fa26</guid>
-      <pubDate>Thu, 05 Nov 2026 15:35:06 GMT</pubDate>
-      <category>people</category>
-      <description>A Montana guest ranch employs autistic adults as guides, wranglers and cooks. Evidence: Proven at scale. Source: Reasons to be Cheerful.</description>
+      <description>In Juneau, neighbours feed each other by sharing fish, game and garden food across the community. How you can help: Share surplus garden produce or bulk food with a neighbour this week. Source: The Guardian Environment.</description>
     </item>
     <item>
       <title>‘It’s all God’s creation’: farmers continue a ‘Jewishly inspired’ agrarian tradition</title>
@@ -398,15 +374,7 @@
       <guid isPermaLink="false">sunward-34d57b777c</guid>
       <pubDate>Thu, 22 Oct 2026 19:18:11 GMT</pubDate>
       <category>people</category>
-      <description>A growing number of Jewish Americans are finding community through small farms rooted in tradition. Source: The Guardian Environment.</description>
-    </item>
-    <item>
-      <title>How to move 1,300 plants for Kew's Palm House mega makeover</title>
-      <link>https://www.bbc.co.uk/news/videos/c914d43gg2zdo?at_medium=RSS&amp;at_campaign=rss</link>
-      <guid isPermaLink="false">sunward-e991620d3d</guid>
-      <pubDate>Fri, 02 Oct 2026 08:53:30 GMT</pubDate>
-      <category>planet</category>
-      <description>Kew is moving 1,300 plants so its historic Palm House can be restored. Source: BBC Science &amp; Environment.</description>
+      <description>A growing number of Jewish Americans are finding community and purpose through small farms. Source: The Guardian Environment.</description>
     </item>
   </channel>
 </rss>
